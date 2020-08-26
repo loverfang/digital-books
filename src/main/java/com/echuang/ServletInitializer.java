@@ -4,7 +4,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * @author 数字图书管Web启动类
+ *  数字图书管Web启动类
+ *  @Author Luo.z.x
+ *  @Date 2020/8/26 18:32
+ *  @Version 1.0
  */
 public class ServletInitializer extends SpringBootServletInitializer {
     @Override
