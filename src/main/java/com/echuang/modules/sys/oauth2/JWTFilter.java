@@ -76,7 +76,6 @@ public class JWTFilter extends AuthenticatingFilter {
         } catch (IOException e1) {
             logger.error("onLoginFailure", e1);
         }
-
         return false;
     }
 
@@ -91,7 +90,6 @@ public class JWTFilter extends AuthenticatingFilter {
         if (StringUtils.isBlank(token)) {
             token = httpRequest.getParameter("token");
         }
-
         return token;
     }
 }

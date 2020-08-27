@@ -21,15 +21,12 @@ public class JWTUtil {
     /**
      *过期时间
      */
-    @Value("jwt.expire")
     private static Long expire;
 
     /**
      * 秘钥
      */
-    @Value("jwt.secret")
     private static String secret;
-
 
     /**
      * 校验token是否正确
@@ -101,16 +98,17 @@ public class JWTUtil {
     public static Long getExpire() {
         return expire;
     }
-
-    public static void setExpire(Long expire) {
-        JWTUtil.expire = expire;
+    @Value("${echuang.jwt.expire}")
+    public void setExpire(Long expire) {
+        this.expire = expire;
     }
 
     public static String getSecret() {
         return secret;
     }
 
-    public static void setSecret(String secret) {
-        JWTUtil.secret = secret;
+    @Value("${echuang.jwt.secret}")
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }

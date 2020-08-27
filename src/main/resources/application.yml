@@ -54,7 +54,7 @@ echuang:
     # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
     jwt:
         # 加密秘钥
-        secret: kF3`eF0|bD0!eA1#gE0!eE3_hD0@kJ0#[niefy@qq.com]
+        secret: AxsQfulNiXGpplT4iTlEeU@GRjTMvTFa[luozhonxue]
         # token有效时长，7天，单位秒
         expire: 604800
         header: token
