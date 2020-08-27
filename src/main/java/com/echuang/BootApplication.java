@@ -12,11 +12,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @Date 2020/8/26 18:32
  * @Version 1.0
  */
+
 @SpringBootApplication
 @EnableScheduling
 @EnableAsync
 @EnableCaching
-public class BootApplication {
+public class BootApplication{
     public static void main(String[] args) {
         SpringApplication.run(BootApplication.class, args);
     }

@@ -5,7 +5,7 @@ server:
         max-threads: 1000
         min-spare-threads: 30
     port: 8088
-    connection-timeout: 5000ms
+
     servlet:
         context-path: /wx
 
@@ -13,7 +13,7 @@ debug: false
 
 spring:
     profiles:
-        active: @profile.active@ #此处由maven的环境选择决定，参考：https://www.jianshu.com/p/b7c75b0c364c
+        active: dev
     # jackson时间格式化
     jackson:
         time-zone: GMT+8
@@ -33,8 +33,8 @@ spring:
 mybatis-plus:
     mapper-locations: classpath*:/mapper/**/*.xml
     #实体扫描，多个package用逗号或者分号分隔
-    type-aliases-package: com.github.niefy.modules.*.entity
-    type-handlers-package: com.github.niefy.common.handler
+    type-aliases-package: com.echuang.modules.*.entity
+    type-handlers-package: com.echuang.common.handler
     global-config:
         #数据库相关配置
         db-config:
@@ -50,7 +50,7 @@ mybatis-plus:
         call-setters-on-nulls: true
         jdbc-type-for-null: 'null'
 
-renren:
+echuang:
     # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
     jwt:
         # 加密秘钥

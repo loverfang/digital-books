@@ -1,5 +1,9 @@
-// buildScript必须在顶部，注意位置
+// buildScript 代码块中脚本优先执行
 buildscript {
+    ext {
+        springIOVersion = '1.0.0.RELEASE'
+        springBootVersion = '2.2.2.RELEASE'
+    }
     repositories {
         maven { url 'file:///D:/gradle-repository'}
         mavenLocal()
@@ -8,19 +12,20 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // 让spring-boot支持gradle
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.2.RELEASE")
+        // classpath声明 说明了在执行其余的脚本时，ClassLoader 可以使用这些依赖项
+        classpath "io.spring.gradle:dependency-management-plugin:${springIOVersion}"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.2.2.RELEASE'
-    id 'war'
+configurations {
+    provided
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'war'
+
 // 使用spring boot
 apply plugin: "org.springframework.boot"
 // 使用spring boot的自动依赖管理
@@ -32,13 +37,15 @@ version '1.0-SNAPSHOT'
 // 指定java版本
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 repositories {
     // 使用国内的源
     maven { url 'https://maven.aliyun.com/repository/public' }
     mavenCentral()
 }
-
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 
@@ -58,18 +65,28 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
     // db
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
     compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.22'
     compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.1'
 
+
+
     // kaptcha
     compile group: 'com.github.axet', name: 'kaptcha', version: '0.0.9'
+
     // joda-time
     compile group: 'joda-time', name: 'joda-time', version: '2.10.6'
 
     compile group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
 
+    // 设置内嵌tomcat,对于编译和测试classpath有效，但在运行时候无效,因为运行是由外置tomcat提供
+    provided 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    // spring boot:run
+    runtime('org.springframework.boot:spring-boot-devtools')
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
 }
