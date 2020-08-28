@@ -1,5 +1,4 @@
 // gradle学习地址：https://itdashu.com/docs/gradlebase/63926-2/log.html
-// https://www.imooc.com/video/14784
 // buildScript 代码块中脚本优先执行
 buildscript {
     ext {
@@ -16,7 +15,7 @@ buildscript {
     dependencies {
         // classpath声明 说明了在执行其余的脚本时，ClassLoader 可以使用这些依赖项
         classpath "io.spring.gradle:dependency-management-plugin:${springIOVersion}"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
@@ -44,7 +43,6 @@ repositories {
     maven { url 'https://maven.aliyun.com/repository/public' }
     mavenCentral()
 }
-
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 
@@ -80,8 +78,8 @@ dependencies {
     // spring boot:run
     runtime('org.springframework.boot:spring-boot-devtools')
 
-    // provided('org.springframework.boot:spring-boot-starter-tomcat')
     // 设置内嵌tomcat,对于编译和测试classpath有效，但在运行时候无效,因为运行是由外置tomcat提供
     providedCompile('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
