@@ -8,6 +8,7 @@ import com.echuang.common.validator.Assert;
 import com.echuang.common.validator.ValidatorUtils;
 import com.echuang.common.validator.group.AddGroup;
 import com.echuang.common.validator.group.UpdateGroup;
+import com.echuang.common.web.AbstractController;
 import com.echuang.modules.sys.entity.SysUserEntity;
 import com.echuang.modules.sys.form.PasswordVo;
 import com.echuang.modules.sys.service.SysUserRoleService;

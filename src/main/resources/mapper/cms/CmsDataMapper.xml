@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.echuang.modules.cms.mapper.CmsDataMapper">
+    <cache-ref namespace="com.echuang.modules.cms.mapper.CmsDataMapper"/>
+
+    <sql id="queryPageListFiled">
+            d.data_id,
+            d.category_id,
+            cg.category_name,
+            d.name,
+            d.abstracts,
+            d.content,
+            d.cover_img_url,
+            d.author,
+            d.platform,
+            d.source,
+            d.view_count,
+            d.down_count,
+            d.status,
+            d.create_time,
+            df.file_id,
+            df.file_name,
+            df.file_size,
+            df.file_path,
+            df.file_type
+    </sql>
+
+    <!-- 查询用户的所有权限 -->
+    <select id="queryPageList" resultType="com.echuang.modules.cms.entity.CmsDataEntity">
+        select
+            <include refid="queryPageListFiled"></include>
+        from cms_data as d
+            inner join cms_category as cg on cg.category_id = d.category_id
+            left join cms_data_file as df on d.data_id = df.data_id
+        <where>
+             <if test="params.category_id != null">
+                 and d.category_id = #{params.categoryId}
+             </if>
+             <if test="params.name !=null and params.name != ''">
+                 and d.name like concat('%',#{params.name},'%')
+             </if>
+             <if test="params.author !=null and params.author != ''">
+                 and d.author like concat('%',#{params.author},'%')
+             </if>
+             <if test="params.platform !=null and params.platform != ''">
+                 and d.platform like concat('%',#{params.platform},'%')
+             </if>
+        </where>
+
+    </select>
+
+    <select id="getCmsDataById" resultType="com.echuang.modules.cms.entity.CmsDataEntity">
+        select
+            <include refid="queryPageListFiled"></include>
+        from cms_data as d
+            inner join cms_category as cg on cg.category_id = d.category_id
+            left join cms_data_file as df on d.data_id = df.data_id
+        where d.data_id = #{id}
+    </select>
+
+    <update id="updateStatusBatchByMap" parameterType="java.util.Map">
+        update
+            cms_data
+        set
+            status = #{param.stauts}
+        where data_id in
+        <foreach collection="param.ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

@@ -4,6 +4,7 @@ import com.echuang.common.annotation.SysLog;
 import com.echuang.common.utils.PageUtils;
 import com.echuang.common.utils.ResultResponse;
 import com.echuang.common.validator.ValidatorUtils;
+import com.echuang.common.web.AbstractController;
 import com.echuang.modules.sys.entity.SysConfigEntity;
 import com.echuang.modules.sys.service.SysConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

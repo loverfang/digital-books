@@ -1,6 +1,7 @@
 package com.echuang.modules.sys.controller;
 
 import com.echuang.common.utils.ResultResponse;
+import com.echuang.common.web.AbstractController;
 import com.echuang.modules.sys.entity.SysUserEntity;
 import com.echuang.modules.sys.form.SysLoginVo;
 import com.echuang.modules.sys.service.SysCaptchaService;

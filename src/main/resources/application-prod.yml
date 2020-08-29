@@ -32,19 +32,8 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-## 微信公众号配置
-wx:
-    mp:
-        configs:
-            -   appid:
-                secret:
-                token:
-                aesKey:
-    pay:
-        appId:  #微信公众号或者小程序等的appid
-        mchId:  #微信支付商户号
-        mchKey:  #微信支付商户密钥
-        subAppId:  #服务商模式下的子商户公众账号ID
-        subMchId:  #服务商模式下的子商户号
-        keyPath: classpath:/cert/wx-pay-cert.p12 # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
-        useSandBoxEnv: false #是否使用微信支付沙箱测试环境
+
+###上传文件配置 :该配置可根据部署的系统或开发人员自定义路径，每次部署之前需要修改location
+uploadFile:
+    resourceHandler: /upload_/**   #请求 url 中的资源映射也是保存到数据库中的父级路径
+    location: D:/webdata/upload_/ #自定义上传文件服务器硬盘保存路径  ，linux服务器保存路径 /opt/webdata/upload_/

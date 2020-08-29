@@ -43,6 +43,15 @@ repositories {
     maven { url 'https://maven.aliyun.com/repository/public' }
     mavenCentral()
 }
+/**
+ * 从gradle升级到3.0只有就多出了api和implementation来引入依赖包的方式
+ * api和之前的compile没啥区别用哪个都一个效果
+ * implementation引入的依赖不具有传递性，只能在应用的implementation中使用
+ * 比如：A引B，然后B引C，
+ *     如果在B中使用implementation引入C那么A中是不能使用C中的内容的，
+ *     如果在B中使用compile引入C那么A中能使用C中的内容，也就是说compile和api具有传递性，而implementation不具有传递性
+ */
+// implementation
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
 
@@ -79,7 +88,8 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-devtools')
 
     // 设置内嵌tomcat,对于编译和测试classpath有效，但在运行时候无效,因为运行是由外置tomcat提供
-    providedCompile('org.springframework.boot:spring-boot-starter-tomcat')
+    // provided  -->  compileOnly
+    providedCompile 'org.springframework.boot:spring-boot-starter-tomcat'
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

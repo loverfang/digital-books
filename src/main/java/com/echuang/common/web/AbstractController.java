@@ -1,4 +1,4 @@
-package com.echuang.modules.sys.controller;
+package com.echuang.common.web;
 
 import com.echuang.modules.sys.entity.SysUserEntity;
 import org.apache.shiro.SecurityUtils;

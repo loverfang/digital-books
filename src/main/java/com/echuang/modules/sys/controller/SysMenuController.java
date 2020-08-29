@@ -4,6 +4,7 @@ import com.echuang.common.annotation.SysLog;
 import com.echuang.common.exception.RRException;
 import com.echuang.common.utils.Constant;
 import com.echuang.common.utils.ResultResponse;
+import com.echuang.common.web.AbstractController;
 import com.echuang.modules.sys.entity.SysMenuEntity;
 import com.echuang.modules.sys.service.ShiroService;
 import com.echuang.modules.sys.service.SysMenuService;

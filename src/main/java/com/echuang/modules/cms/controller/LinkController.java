@@ -1,8 +1,15 @@
 package com.echuang.modules.cms.controller;
 
+import com.echuang.common.utils.PageUtils;
 import com.echuang.common.utils.ResultResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.echuang.common.web.AbstractController;
+import com.echuang.modules.cms.entity.CmsLinkEntity;
+import com.echuang.modules.cms.service.CmsLinkService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 友情链接
@@ -12,20 +19,33 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/cms/link")
-public class LinkController {
-    public ResultResponse list(){
-        return null;
+public class LinkController extends AbstractController {
+
+    @Resource
+    private CmsLinkService csLinkService;
+
+    @GetMapping("/list")
+    public ResultResponse list(@RequestParam Map<String, Object> params) {
+        PageUtils page = csLinkService.queryPageList( params );
+        return ResultResponse.ok().put("page", page);
     }
 
-    public ResultResponse add(){
-        return null;
+    @PostMapping("/add")
+    public ResultResponse add(@RequestBody CmsLinkEntity cmsLinkEntity){
+        csLinkService.save(cmsLinkEntity);
+        return ResultResponse.ok();
     }
 
-    public ResultResponse update(){
-        return null;
+    @PostMapping("/update")
+    public ResultResponse update(@RequestBody CmsLinkEntity cmsLinkEntity){
+        csLinkService.saveOrUpdate(cmsLinkEntity);
+        return ResultResponse.ok();
     }
 
-    public ResultResponse del(){
-        return null;
+    @PostMapping("/del")
+    public ResultResponse del(@RequestBody List<Long> ids){
+        csLinkService.removeByIds(ids);
+        return ResultResponse.ok();
     }
+
 }
