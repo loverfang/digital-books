@@ -34,7 +34,10 @@ public class DataController {
      */
     @GetMapping("/list")
     public ResultResponse list(@RequestParam Map<String, Object> params) {
-        PageUtils page = cmsDataService.queryPageList(params);
+        Integer page = params.get("page") == null? (Integer)params.get("page") : 1;
+        Integer limit = params.get("limit") == null? (Integer)params.get("limit") : 1;
+
+        cmsDataService.queryPageList(params, page, limit);
         return ResultResponse.ok().put("page", page);
     }
 
@@ -89,5 +92,4 @@ public class DataController {
         cmsDataService.updateStatusBatchByMap(param);
         return ResultResponse.ok();
     }
-
 }

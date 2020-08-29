@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface CmsDataService extends IService<CmsDataEntity> {
 
-    PageUtils queryPageList(Map<String,Object> queryMap);
+    PageUtils queryPageList(Map<String,Object> queryMap, int page, int limit);
 
     void saveCmsData(CmsDataEntity cmsDataEntity);
 

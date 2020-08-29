@@ -2,6 +2,7 @@ package com.echuang.modules.cms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.echuang.modules.cms.entity.CmsDataEntity;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,16 +17,16 @@ import java.util.Map;
  * @Version 1.0
  */
 @Mapper
-@CacheNamespace(flushInterval = 10 * 1000L) //缓存五分钟过期
+@CacheNamespace(flushInterval = 1000L) //缓存五分钟过期
 public interface CmsDataMapper extends BaseMapper<CmsDataEntity> {
 
     /**
      * 自定义的分页查询
-     * @param page
+     * @param paramMap
      * @param paramMap
      * @return
      */
-    List<CmsDataEntity> queryPageList(@Param("page") IPage page, @Param("params")Map<String,Object> paramMap);
+    List<Map<String,Object>> queryPageList(@Param("page") Page<Map<String,Object>> page, @Param("params")Map<String, Object> paramMap);
 
     /**
      * 加载资料详情

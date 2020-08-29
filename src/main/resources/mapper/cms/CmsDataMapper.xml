@@ -3,7 +3,6 @@
 
 <mapper namespace="com.echuang.modules.cms.mapper.CmsDataMapper">
     <cache-ref namespace="com.echuang.modules.cms.mapper.CmsDataMapper"/>
-
     <sql id="queryPageListFiled">
             d.data_id,
             d.category_id,
@@ -26,10 +25,14 @@
             df.file_type
     </sql>
 
+    <resultMap id="dataListMap" type="com.echuang.modules.cms.entity.CmsDataEntity">
+        <result column="data_id"  property="dataId" />
+    </resultMap>
+
     <!-- 查询用户的所有权限 -->
     <select id="queryPageList" resultType="com.echuang.modules.cms.entity.CmsDataEntity">
         select
-            <include refid="queryPageListFiled"></include>
+            d.data_id
         from cms_data as d
             inner join cms_category as cg on cg.category_id = d.category_id
             left join cms_data_file as df on d.data_id = df.data_id
@@ -47,7 +50,6 @@
                  and d.platform like concat('%',#{params.platform},'%')
              </if>
         </where>
-
     </select>
 
     <select id="getCmsDataById" resultType="com.echuang.modules.cms.entity.CmsDataEntity">

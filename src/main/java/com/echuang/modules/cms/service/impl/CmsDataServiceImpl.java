@@ -1,6 +1,7 @@
 package com.echuang.modules.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.DateUtils;
 import com.echuang.common.utils.PageUtils;
@@ -11,11 +12,13 @@ import com.echuang.modules.cms.entity.CmsDataFileEntity;
 import com.echuang.modules.cms.mapper.CmsDataFileMapper;
 import com.echuang.modules.cms.mapper.CmsDataMapper;
 import com.echuang.modules.cms.service.CmsDataService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,12 +35,14 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
     CmsDataFileMapper cmsDataFileMapper;
 
     @Override
-    public PageUtils queryPageList(Map<String,Object> queryMap) {
+    public PageUtils queryPageList(Map<String,Object> queryMap, int page, int limit){
+
         // 新建分页
-        //Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo,limit);
-        IPage<CmsDataEntity> page= new Query<CmsDataEntity>().getPage(queryMap);
+        Page<Map<String,Object>> pageNo = new Page<Map<String,Object>>(page, limit);
         // 返回结果
-        return  new PageUtils(page.setRecords(cmsDataMapper.queryPageList(page,queryMap)));
+        List<Map<String,Object>> resultList = cmsDataMapper.queryPageList(pageNo, queryMap);
+        return null;
+        //return  new PageUtils(page.setRecords(resultList));
     }
 
     @Override
@@ -58,7 +63,7 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
         }
 
         dataFileEntity.setFileId(dataFileId);
-        dataFileEntity.setFileId(dataId);
+        dataFileEntity.setDataId(dataId);
         cmsDataFileMapper.insert(dataFileEntity);
     }
 
