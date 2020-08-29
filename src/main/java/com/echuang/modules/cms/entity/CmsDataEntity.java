@@ -87,9 +87,7 @@ public class CmsDataEntity  implements Serializable {
         this.dataId = dataId;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
+    public Long getCategoryId() { return categoryId; }
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
@@ -131,9 +129,7 @@ public class CmsDataEntity  implements Serializable {
         return coverImgUrl;
     }
 
-    public void setCoverImgUrl(String coverImgUrl) {
-        this.coverImgUrl = coverImgUrl;
-    }
+    public void setCoverImgUrl(String coverImgUrl) { this.coverImgUrl = coverImgUrl; }
 
     public String getAuthor() {
         return author;
@@ -147,9 +143,7 @@ public class CmsDataEntity  implements Serializable {
         return platform;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
+    public void setPlatform(String platform) { this.platform = platform; }
 
     public String getSource() {
         return source;
@@ -183,9 +177,7 @@ public class CmsDataEntity  implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+    public Date getCreateTime() { return createTime; }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
