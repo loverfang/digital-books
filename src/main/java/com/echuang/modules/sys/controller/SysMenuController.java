@@ -1,5 +1,6 @@
 package com.echuang.modules.sys.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.echuang.common.annotation.SysLog;
 import com.echuang.common.exception.RRException;
 import com.echuang.common.utils.Constant;
@@ -46,7 +47,7 @@ public class SysMenuController extends AbstractController {
     @GetMapping("/list")
     @RequiresPermissions("sys:menu:list")
     public List<SysMenuEntity> list() {
-        List<SysMenuEntity> menuList = sysMenuService.list();
+        List<SysMenuEntity> menuList = sysMenuService.list(new QueryWrapper<SysMenuEntity>().orderByAsc("order_num"));
         for (SysMenuEntity sysMenuEntity : menuList) {
             SysMenuEntity parentMenuEntity = sysMenuService.getById(sysMenuEntity.getParentId());
             if (parentMenuEntity != null) {

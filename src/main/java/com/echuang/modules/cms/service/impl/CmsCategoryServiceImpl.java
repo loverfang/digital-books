@@ -40,7 +40,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
         // 新建分页
         Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo,limit);
         // 返回结果
-        return  new PageUtils(page.setRecords(cmsCategoryMapper.queryPage(page,  params)));
+        return  new PageUtils(page.setRecords(cmsCategoryMapper.queryPageList(page,  params)));
     }
 
     @Override
