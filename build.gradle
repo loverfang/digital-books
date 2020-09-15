@@ -54,6 +54,7 @@ repositories {
 // implementation
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-freemarker'
 
     compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
@@ -89,7 +90,8 @@ dependencies {
 
     // 设置内嵌tomcat,对于编译和测试classpath有效，但在运行时候无效,因为运行是由外置tomcat提供
     // provided  -->  compileOnly
-    providedCompile 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedCompile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.2.2.RELEASE'
+
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

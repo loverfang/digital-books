@@ -1,10 +1,11 @@
 package com.echuang.config;
 
+import com.echuang.common.interceptor.BasePathInterceptor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * @Author Luo.z.x
@@ -19,6 +20,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${uploadFile.location}")
     private String location;
+
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setCache(false);
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".html");
+        resolver.setContentType("text/html; charset=UTF-8");
+        registry.viewResolver(resolver);
+    }
 
     /**
      * 跨域配置
@@ -40,5 +54,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //中出现 resourceHandler 匹配时，则映射到 location 中去,location 相当于虚拟的，被映射的路径
         // 映射本地文件时，开头必须是 file:/// 开头，表示协议
         registry.addResourceHandler(resourceHandler).addResourceLocations("file:///" + location);
+        registry.addResourceHandler(new String[] { "/res/**" }).addResourceLocations(new String[] { "classpath:/static/" });
+    }
+
+    /**
+     * 载入自定义拦截器
+     * @param registry
+     */
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(basePathInterceptor()).addPathPatterns(new String[] { "/**" });
+    }
+
+    @Bean
+    public BasePathInterceptor basePathInterceptor() {
+        return new BasePathInterceptor();
     }
 }
