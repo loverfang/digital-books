@@ -34,7 +34,7 @@
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--路径-->
-            <fileNamePattern>/usr/local/webservice/maingoo/logs/wx.%d.log</fileNamePattern>
+            <fileNamePattern>/home/luozx/program_log/digital-books/wx.%d.log</fileNamePattern>
             <MaxHistory>100</MaxHistory>
         </rollingPolicy>
     </appender>
