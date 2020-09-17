@@ -1,6 +1,7 @@
 package com.echuang.modules.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,10 +10,12 @@ import com.echuang.common.utils.Query;
 import com.echuang.modules.cms.entity.CmsCategoryEntity;
 import com.echuang.modules.cms.mapper.CmsCategoryMapper;
 import com.echuang.modules.cms.service.CmsCategoryService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +42,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
     public PageUtils queryPageByParent(Map<String,Object> params, Integer pageNo, Integer limit) {
         // 新建分页
         Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo,limit);
+        params.put("status", 1);
         // 返回结果
         return  new PageUtils(page.setRecords(cmsCategoryMapper.queryPageList(page,  params)));
     }
@@ -70,7 +74,28 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
 
     @Override
     public int batchUpdateStatus(List<Long> bannerIds, Integer status) {
+        // has have child
+        this.baseMapper.childList(bannerIds.get(0));
+
+        // heck
         return 0;
     }
 
+    @Override
+    public int updateStatus(Long categoryId, Integer status){
+        List<Map<String,Object>> childList = cmsCategoryMapper.childList(categoryId);
+        if(CollectionUtils.isNotEmpty(childList) && childList.size()>0) {
+            return 0;
+        }else{
+            CmsCategoryEntity categoryEntity = new CmsCategoryEntity();
+            categoryEntity.setCategoryId(categoryId);
+            categoryEntity.setStatus(status);
+
+            //修改条件s
+            UpdateWrapper<CmsCategoryEntity> userUpdateWrapper = new UpdateWrapper<>();
+            userUpdateWrapper.eq("category_id", categoryId);
+
+            return cmsCategoryMapper.update(categoryEntity, userUpdateWrapper);
+        }
+    }
 }

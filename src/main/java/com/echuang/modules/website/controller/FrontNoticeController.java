@@ -6,16 +6,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @Author Luo.z.x
- * @Date 2020/9/15 17:47
+ * @Date 2020/9/15 17:39
  * @Version 1.0
  */
 @Controller
-@RequestMapping("/links")
-public class LinksController {
-
+@RequestMapping("/notice")
+public class FrontNoticeController {
     @GetMapping("/list")
     public String list(){
         return "website/notice_list";
     }
 
+    @GetMapping("/detail")
+    public String detail(){
+        return "website/notice_detail";
+    }
 }

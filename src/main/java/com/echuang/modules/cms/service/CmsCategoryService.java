@@ -46,11 +46,17 @@ public interface CmsCategoryService extends IService<CmsCategoryEntity> {
     int update(CmsCategoryEntity cmsCategoryEntity);
 
     /**
-     * 批量删除模型
-     * @param categroyIds
+     * 批量删除类型    * @param categroyIds
      * @return
      */
     int batchUpdateStatus(List<Long> categroyIds, Integer status);
+
+    /**
+     * 删除类型
+     * @param categoryId
+     * @return
+     */
+    int updateStatus(Long categoryId, Integer status);
 
     /**
      * 类别详情
@@ -64,5 +70,6 @@ public interface CmsCategoryService extends IService<CmsCategoryEntity> {
      * @return
      */
     List<CmsCategoryEntity> treeList();
+
 
 }

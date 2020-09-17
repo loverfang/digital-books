@@ -24,6 +24,8 @@ public class CmsCategoryEntity  implements Serializable {
 
     @NotBlank(message = "显示顺序不能为空")
     private Integer priority;
+    @NotBlank(message = "型状态")
+    private Integer status;
 
     private String remark;
 
@@ -74,6 +76,10 @@ public class CmsCategoryEntity  implements Serializable {
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
 
     public String getRemark() {
         return remark;

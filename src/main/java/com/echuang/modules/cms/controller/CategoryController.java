@@ -68,9 +68,12 @@ public class CategoryController {
     }
 
     @PostMapping("/delete")
-    public ResultResponse delete(@RequestBody List<Long> modelIds){
+    public ResultResponse delete(@RequestBody List<Long> categoryIds){
         Integer status = 0;
-        cmsCategoryService.batchUpdateStatus( modelIds, status);
+        int updateResult = cmsCategoryService.updateStatus( categoryIds.get(0), status);
+        if(updateResult ==0){
+          return ResultResponse.error("该类型下有子类型，请先删除子类型再进行操作！");
+        }
         return ResultResponse.ok();
     }
 

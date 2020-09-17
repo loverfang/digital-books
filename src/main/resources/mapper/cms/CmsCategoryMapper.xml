@@ -15,9 +15,12 @@
             cms_category as c
             left join cms_category as p on p.category_id = c.parent_id
         <where>
-            c.parent_id = #{paramMap.parentId}
+            c.status = 1 and c.parent_id = #{paramMap.parentId}
             <if test="paramMap.categoryName !=null and paramMap.categoryName!=''">
                 and (c.category_name like concat('%',#{paramMap.categoryName},'%') or p.category_name like concat('%',#{paramMap.categoryName},'%'))
+            </if>
+            <if test="paramMap.status !=null">
+                and c.status = #{paramMap.status}
             </if>
         </where>
         order by c.priority asc
@@ -36,6 +39,8 @@
             cms_category as c
             left join cms_category as p on p.category_id = c.parent_id
         where
+            c.status = 1
+            and
             c.parent_id = #{parentId}
 
         order by c.priority asc
