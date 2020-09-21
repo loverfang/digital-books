@@ -8,9 +8,10 @@
             c.category_name as categoryName,
             c.parent_id as parentId,
             c.priority as priority,
+            c.category_url as categoryUrl,
             c.remark,
             p.category_name as parentName,
-            (select count(*) from cms_category as temp where temp.parent_id = c.category_id) as childCount
+            (select count(*) from cms_category as temp <where> temp.parent_id = c.category_id <if test="paramMap.status !=null">and temp.status = #{paramMap.status} </if></where>) as childCount
         from
             cms_category as c
             left join cms_category as p on p.category_id = c.parent_id

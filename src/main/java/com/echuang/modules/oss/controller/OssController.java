@@ -3,6 +3,7 @@ package com.echuang.modules.oss.controller;
 import com.echuang.common.exception.RRException;
 import com.echuang.common.utils.ResultResponse;
 import com.echuang.modules.oss.service.OssService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +31,11 @@ public class OssController {
      * 上传文件
      */
     @PostMapping("/uploadFile")
-    public ResultResponse upload(@RequestParam("file") MultipartFile file) throws Exception {
+    @RequiresPermissions("sys:oss:upload")
+    public ResultResponse upload(@RequestParam(name = "file") MultipartFile file, @RequestParam(name = "childPath",required = false) String childPath) throws Exception {
         MultipartFile[] files = new MultipartFile[1];
         files[0] = file;
-        List<Map<String,Object>> uploadResultMap =  ossService.uploadFile(files);
+        List<Map<String,Object>> uploadResultMap =  ossService.uploadFile(files, childPath);
         return ResultResponse.ok().put("files", uploadResultMap);
     }
 
@@ -43,8 +45,9 @@ public class OssController {
      * @return
      */
     @PostMapping("/uploadFiles")
-    public ResultResponse upload(@RequestParam("file") MultipartFile[] files) throws Exception {
-        List<Map<String,Object>> uploadResultListMap =  ossService.uploadFile(files);
+    @RequiresPermissions("sys:oss:upload")
+    public ResultResponse upload(@RequestParam(name = "file") MultipartFile[] files, @RequestParam(name = "childPath",required = false) String childPath)throws Exception {
+        List<Map<String,Object>> uploadResultListMap =  ossService.uploadFile(files, childPath);
         return ResultResponse.ok().put("files", uploadResultListMap);
     }
 

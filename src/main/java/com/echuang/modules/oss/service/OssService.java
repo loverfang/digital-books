@@ -18,5 +18,5 @@ import java.util.Map;
  */
 public interface OssService extends IService<OssEntity> {
     PageUtils queryPage(Map<String, Object> params);
-    List<Map<String,Object>> uploadFile(MultipartFile[] files) throws RRException;
+    List<Map<String,Object>> uploadFile(MultipartFile[] files,String childPath) throws RRException;
 }

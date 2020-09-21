@@ -33,7 +33,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                 new Query<CmsCategoryEntity>().getPage(params),
                 new QueryWrapper<CmsCategoryEntity>()
                         .like(StringUtils.isNotBlank(categoryName), "category_name", categoryName)
-                        .eq("parent_id", parentId)
+                        .eq("parent_id", parentId).eq("status", 1)
         );
         return new PageUtils(page);
     }
@@ -54,7 +54,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
 
     @Override
     public List<CmsCategoryEntity> treeList() {
-        return this.baseMapper.selectList(null);
+        return this.baseMapper.selectList(new UpdateWrapper<CmsCategoryEntity>().eq("status", 1));
     }
 
     @Override

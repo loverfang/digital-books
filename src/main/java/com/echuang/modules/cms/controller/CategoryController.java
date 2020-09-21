@@ -46,17 +46,18 @@ public class CategoryController {
     @GetMapping("/treeList")
     public ResultResponse treeList(){
         List<CmsCategoryEntity> treeList = cmsCategoryService.treeList();
-        return ResultResponse.ok().put("page", treeList);
+        return ResultResponse.ok().put("treeList", treeList);
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     public ResultResponse detail(Long categoryId){
-        return ResultResponse.ok().put("data",cmsCategoryService.detail(categoryId));
+        return ResultResponse.ok().put("category",cmsCategoryService.detail(categoryId));
     }
 
     @PostMapping("/add")
     public ResultResponse add(@RequestBody CmsCategoryEntity cmsCategory){
         cmsCategory.setCategoryId(SnowflakeIdWorker.getSnowflakeId());
+        cmsCategory.setStatus( 1 );
         cmsCategoryService.add(cmsCategory);
         return ResultResponse.ok();
     }

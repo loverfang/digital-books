@@ -1,6 +1,6 @@
 ﻿        @charset "utf-8";
         /* CSS Document */
-        
+        body { behavior:url("csshover.htc"); }
         body,
         input,
         textarea {
@@ -58,10 +58,7 @@
         }
         /*顶部 导航*/
         
-        .top-bj {
-            width: 100%;
-            height: 120px;
-        }
+       
         
         .footer {
             background: #333333;
@@ -100,7 +97,7 @@
         .link-warp a {
             width: 260px;
             float: left;
-            margin-left: 20px;
+            padding-left: 20px;
             display: block;
             cursor: pointer;
             color: #333333;
@@ -117,10 +114,13 @@
             width: 1200px;
             border: 1px solid #d2d2d2;
             margin-bottom: 20px;
+            overflow: hidden;
         }
         
         .periodical-top {
             overflow: hidden;
+            padding: 0 0px  0 20px;
+            clear: both;
         }
         
         .periodical-top .title {
@@ -128,9 +128,10 @@
             color: #c62c1d;
             border-top: 5px solid #c62c1d;
             padding-top: 20px;
-            margin-left: 20px;
+           height:20px;
             padding-bottom: 30px;
             float: left;
+            overflow: hidden;
         }
         
         .w110 {
@@ -152,7 +153,7 @@
         .group .more,
         .out-report .more {
             float: right;
-            margin-right: 20px;
+            padding-right: 20px;
             padding-top: 20px;
         }
         
@@ -173,16 +174,20 @@
         .out-report .more a:hover {
             color: #c62c1d;
         }
-        
-        .periodical-list {
+        a img{border: none;}
+        .periodical-list{overflow: hidden; clear: both;}
+        .periodical-list  ul{
             overflow: hidden;
-            padding-left: 30px;
+            padding-left: 65px;
+             
+           
         }
         
         .periodical-list ul li {
             width: 236px;
+            overflow: hidden;
             float: left;
-            margin: 0 20px 20px 20px;
+        margin: 20px 30px 20px 0;
             padding: 5px;
             background: url(../images/pic-bj.jpg) no-repeat;
             display: block;
@@ -198,14 +203,14 @@
         }
         
         .periodical-list .img-warp {
-            max-width: 226px;
+            max-width: 230px;
             max-height: 308px;
             vertical-align: middle;
         }
         
         .periodical-list img {
-            height: 308px;
-            width: 226px;
+            height: 306px;
+            width: 224px;
             border: 1px solid #cacaca;
         }
         
@@ -231,13 +236,14 @@
         }
         
         .left-warp {
-            width: 400px;
+            width: 380px;
             height: 645px;
             border: 1px solid #d2d2d2;
             float: left;
             margin-right: 22px;
             margin-bottom: 20px;
             margin-top: 40px;
+            padding-left: 20px;
         }
         
         .left-warp .tit-2 {
@@ -245,7 +251,7 @@
             color: #c62c1d;
             border-top: 5px solid #c62c1d;
             padding-top: 15px;
-            margin-left: 20px;
+            
             width: 110px;
             padding-bottom: 10px;
             float: left;
@@ -266,6 +272,7 @@
             width: 350px;
             float: right;
             margin-top: 40px;
+            margin-bottom: 20px;overflow: hidden;
         }
         
         .right-warp-top {
@@ -303,7 +310,7 @@
         }
         /* 导航*/
         
-        #header {
+        /* #header {
             z-index: 99;
             width: 100%;
             background: #c62c1d;
@@ -320,7 +327,7 @@
                             height: 125px
                         } */
         
-        #header .wrapper>.content::after {
+        /* #header .wrapper>.content::after {
             content: "";
             display: block;
             clear: both
@@ -435,11 +442,117 @@
         
         #navWrapper .content .nav>li .subnav li a:hover {
             background-color: #c62c1d;
-            color: #fff
+            color: #fff 
         }
         
-        #header .nav>li .subnav {
+          #header .nav>li .subnav {
             border-color: #c62c1d;
+        } */
+        
+       
+        .navbj {
+            position: relative;
+            height: 42px;
+            background-color: #c62c1d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu {
+            font-size: 12px;
+            position: relative;
+            z-index: 100;
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu ul {
+            list-style: none;
+        }
+
+        .menu li {
+            float: left;
+            position: relative;
+        }
+
+        .menu ul ul {
+            visibility: hidden;
+            position: absolute;
+            left: 30px;
+            top: 40px;
+        }
+
+        .menu table {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .menu ul li:hover ul,
+        .menu ul a:hover ul {
+            visibility: visible;
+        }
+
+        .menu a {
+            display: block;
+            line-height: 40px;
+            padding: 0 20px;
+            font-size: 16px;
+            border-top: 2px solid #c62c1d;
+            margin-left: 30px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .menu a:hover {
+            background: #fff;
+            color: #c62c1d;
+            border-top: 2px solid #c62c1d;
+            line-height: 38px;
+            border-top: 2px solid #c62c1d;
+        }
+
+        .menu ul ul {
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0px 4px 6.96px 1.04px rgba(153, 153, 153, 0.5);
+            -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#f1f1f1')";
+            /* For IE 5.5 - 7 */
+            filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#f1f1f1');
+        }
+
+        .menu ul ul li {
+            clear: both;
+            text-align: left;
+            font-size: 12px;
+        }
+.menu-active{ background-color: #fff;color:#c62c1d !important;border-top: 2px solid #fff;}  
+        .menu ul ul li a {
+            display: block;
+            width: 165px;
+            font-size: 14px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0;
+            border: 0;
+            color: #333;
+            border-style: solid;
+            background: #fff;
+            overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+        }
+
+        .menu ul ul li a:hover {
+            border: 0;
+            background: #c62c1d;
+
+            height: 40px;
+            line-height: 40px;
+            color: #fff !important;
         }
         /* 专题报告 */
         
@@ -452,12 +565,14 @@
         }
         
         .small-tit-warp {
-            padding: 10px 20px;
+            padding: 10px 20px 0 0;  
+            height: 30px;
             clear: both;
+            overflow: hidden;
         }
         
         .news-index {
-            padding: 10px 20px;
+            padding: 0px 20px 15px 0;
             overflow: hidden;
             clear: both;
         }
@@ -477,10 +592,12 @@
             padding-left: 15px;
         }
         
-        .news-index .left-tit:hover {
-            color: #c62c1d;
+        .news-index a .left-tit:hover,.news-index  a:hover {
+            color: #c62c1d !important;
+            cursor: pointer;
         }
-        
+        a{ cursor: pointer;}
+        a:hover{ cursor: pointer; color: #c62c1d !important;;}
         .news-index .time {
             float: right;
             color: #999;
@@ -491,11 +608,12 @@
         
         .news-index-line {
             border-bottom: 1px dotted #d2d2d2;
-            margin: 0 10px 10px 10px;
+           margin-right: 20px;
+            
         }
         
         .out-report {
-            padding: 0px;
+            padding: 0px 0 0 20px;
             clear: both;
         }
         
@@ -504,7 +622,7 @@
             color: #c62c1d;
             border-top: 5px solid #c62c1d;
             padding-top: 15px;
-            margin-left: 20px;
+            
             width: 90px;
             float: left;
         }
@@ -544,13 +662,13 @@
         }
         
         .adv-index {
-            padding: 10px 20px;
+            padding: 8px 20px 0 20px;
             overflow: hidden;
             clear: both;
         }
         
         .adv-index .left-tit {
-            width: 290px;
+            width: 280px;
             font-size: 14px;
             height: 30px;
             line-height: 30px;
@@ -563,7 +681,7 @@
             padding-left: 25px;
         }
         
-        .adv-index .left-tit:hover {
+        .adv-index  a .left-tit:hover {
             color: #c62c1d;
         }
         
@@ -589,6 +707,8 @@
         
         .top-bj {
             height: 154px;
+            overflow: hidden;
+            
         }
         
         .logo-warp {
@@ -621,12 +741,12 @@
         .seachall input {
             background: none;
             border: none;
-            width: 310px;
-            height: 34px;
+            width: 312px;
+            height: 36px;
             float: left;
             padding-left: 15px;
             outline: none;
-            line-height: 23px;
+            line-height: 34px;
             border-top: 2px solid #cccccc;
             border-left: 2px solid #cccccc;
             border-bottom: 2px solid #cccccc;
@@ -647,14 +767,16 @@
         
         .main-content {
             background-color: #FFF;
-            margin: 40px auto;
+           
             min-height: 500px;
             padding-bottom: 40px;
         }
         
         .main-bj {
             overflow: hidden;
+            padding: 40px 0;
             background-color: #f1f1f1;
+            clear: both;
         }
         
         .crumbs {
@@ -691,6 +813,7 @@
         .news-list {
             width: 890px;
             margin: 30px auto;
+            overflow: hidden;
         }
         
         .news-list ul li {
@@ -698,6 +821,7 @@
             overflow: hidden;
             border-bottom: 1px dotted #e0e0de;
             margin-bottom: 20px;
+            height: 87px;
         }
         
         .news-list ul li:hover {
@@ -939,12 +1063,16 @@
             background: #eeeeee;
             padding-left: 20px;
             border-left: 6px solid #eee;
+            overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
         }
         
         .left-content .subnav a:hover,
         .left-content .subnav .active {
             background: url(../images/left-arr.jpg) left no-repeat #5f5d5d;
-            color: #ffffff;
+            color: #ffffff !important;
             transition: all 0.3s;
             border-left: 6px solid #c62c1d;
         }

@@ -1,6 +1,7 @@
 package com.echuang.modules.cms.controller;
 
 import com.echuang.common.exception.RRException;
+import com.echuang.common.utils.PageUtils;
 import com.echuang.common.utils.ResultResponse;
 import com.echuang.modules.cms.entity.CmsDataEntity;
 import com.echuang.modules.cms.service.CmsDataService;
@@ -31,11 +32,11 @@ public class DataController {
      */
     @GetMapping("/list")
     public ResultResponse list(@RequestParam Map<String, Object> params) {
-        Integer page = params.get("page") == null? (Integer)params.get("page") : 1;
-        Integer limit = params.get("limit") == null? (Integer)params.get("limit") : 1;
+        Integer page = params.get("page") != null? Integer.valueOf((String)params.get("page")): 1;
+        Integer limit = params.get("limit") != null? Integer.valueOf((String)params.get("limit")) : 10;
 
-        cmsDataService.queryPageList(params, page, limit);
-        return ResultResponse.ok().put("page", page);
+        PageUtils pageList = cmsDataService.queryPageList(params, page, limit);
+        return ResultResponse.ok().put("page", pageList);
     }
 
     /**
@@ -45,6 +46,7 @@ public class DataController {
      */
     @PostMapping("/add")
     public ResultResponse add(@RequestBody CmsDataEntity cmsData){
+
         cmsDataService.saveCmsData(cmsData);
         return ResultResponse.ok();
     }

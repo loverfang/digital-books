@@ -14,7 +14,7 @@ import java.util.Date;
  * @Date 2020/8/29 9:40
  * @Version 1.0
  */
-@TableName("cms_data")
+@TableName("/cms_data")
 public class CmsDataEntity  implements Serializable {
     @TableId(value="data_id", type= IdType.INPUT)
     private Long dataId;
@@ -22,11 +22,6 @@ public class CmsDataEntity  implements Serializable {
      * 资料类别Id
      */
     private Long categoryId;
-    /**
-     * 资料类别名称
-     */
-    @TableField(exist = false)
-    private String categoryName;
     /**
      * 资料名称
      */
@@ -58,6 +53,10 @@ public class CmsDataEntity  implements Serializable {
      */
     private String source;
     /**
+     * 资料编号
+     */
+    private String code;
+    /**
      * 查看次数
      */
     private Integer viewCount;
@@ -73,6 +72,11 @@ public class CmsDataEntity  implements Serializable {
      * 资料上传时间
      */
     private Date createTime;
+    /**
+     * 资料类别名称
+     */
+    @TableField(exist = false)
+    private String categoryName;
 
     @TableField(exist = false)
     private CmsDataFileEntity cmsDataFile;
@@ -152,6 +156,10 @@ public class CmsDataEntity  implements Serializable {
     public void setSource(String source) {
         this.source = source;
     }
+
+    public String getCode() { return code;  }
+
+    public void setCode(String code) { this.code = code;  }
 
     public Integer getViewCount() {
         return viewCount;

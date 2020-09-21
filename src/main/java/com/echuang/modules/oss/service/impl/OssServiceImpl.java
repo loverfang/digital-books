@@ -46,7 +46,7 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public  List<Map<String,Object>> uploadFile(MultipartFile[] files) throws RRException {
+    public  List<Map<String,Object>> uploadFile(MultipartFile[] files, String childPath) throws RRException {
         StringBuffer filesPath = new StringBuffer();
         List<Map<String,Object>> filesResult = new ArrayList<Map<String,Object>>();
         for (MultipartFile file : files) {

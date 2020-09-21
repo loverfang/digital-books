@@ -35,25 +35,25 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
     CmsDataFileMapper cmsDataFileMapper;
 
     @Override
-    public PageUtils queryPageList(Map<String,Object> queryMap, int page, int limit){
-
+    public PageUtils queryPageList(Map<String,Object> queryMap, int pageNo, int limit){
         // 新建分页
-        Page<Map<String,Object>> pageNo = new Page<Map<String,Object>>(page, limit);
+        Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo, limit);
+
         // 返回结果
-        List<Map<String,Object>> resultList = cmsDataMapper.queryPageList(pageNo, queryMap);
-        return null;
-        //return  new PageUtils(page.setRecords(resultList));
+        List<Map<String,Object>> resultList = cmsDataMapper.queryPageList(page, queryMap);
+
+        return  new PageUtils(page.setRecords(resultList));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveCmsData(CmsDataEntity cmsDataEntity) {
         Long dataId = SnowflakeIdWorker.getSnowflakeId();
+        cmsDataEntity.setDataId( dataId );
         cmsDataEntity.setViewCount(0);
         cmsDataEntity.setDownCount(0);
         cmsDataEntity.setStatus(1);
         cmsDataEntity.setCreateTime(new Date());
-        cmsDataEntity.setDataId( dataId );
         cmsDataMapper.insert(cmsDataEntity);
 
         Long dataFileId = SnowflakeIdWorker.getSnowflakeId();

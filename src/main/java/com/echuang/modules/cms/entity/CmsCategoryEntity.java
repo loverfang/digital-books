@@ -19,11 +19,14 @@ public class CmsCategoryEntity  implements Serializable {
     @NotBlank(message = "类型名称不能为空")
     private String categoryName;
 
+    private String categoryUrl;
+
     @NotBlank(message = "父类ID不能为空")
     private String parentId;
 
     @NotBlank(message = "显示顺序不能为空")
     private Integer priority;
+
     @NotBlank(message = "型状态")
     private Integer status;
 
@@ -60,6 +63,10 @@ public class CmsCategoryEntity  implements Serializable {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public String getCategoryUrl() { return categoryUrl; }
+
+    public void setCategoryUrl(String categoryUrl) { this.categoryUrl = categoryUrl; }
 
     public String getParentId() {
         return parentId;

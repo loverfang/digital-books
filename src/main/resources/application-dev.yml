@@ -36,6 +36,7 @@ spring:
 ###上传文件配置 :该配置可根据部署的系统或开发人员自定义路径，每次部署之前需要修改location
 uploadFile:
     resourceHandler: /upload_/**   #请求 url 中的资源映射也是保存到数据库中的父级路径
-    location: D:/webdata/upload_/ #自定义上传文件服务器硬盘保存路径  ，linux服务器保存路径 /opt/webdata/upload_/
+    #location: D:/webdata/upload_/ #自定义上传文件服务器硬盘保存路径  ，linux服务器保存路径 /opt/webdata/upload_/
+    location: /home/luozx/temp_file/
 
 

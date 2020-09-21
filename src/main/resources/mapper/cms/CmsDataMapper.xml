@@ -30,7 +30,7 @@
     </resultMap>
 
     <!-- 查询用户的所有权限 -->
-    <select id="queryPageList" resultType="com.echuang.modules.cms.entity.CmsDataEntity">
+    <select id="queryPageList" resultMap="dataListMap">
         select
             d.data_id
         from cms_data as d
