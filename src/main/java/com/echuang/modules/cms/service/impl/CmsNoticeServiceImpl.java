@@ -19,7 +19,7 @@ import java.util.Map;
  * @Date 2020/8/29 9:04
  * @Version 1.0
  */
-@Service("cmsLinkService")
+@Service
 public class CmsNoticeServiceImpl extends ServiceImpl<CmsNoticeMapper, CmsNoticeEntity> implements CmsNoticeService {
 
     @Override
