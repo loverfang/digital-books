@@ -55,7 +55,7 @@ public class CmsDataEntity  implements Serializable {
     /**
      * 资料编号
      */
-    private String code;
+    private String publicNum;
     /**
      * 查看次数
      */
@@ -157,9 +157,13 @@ public class CmsDataEntity  implements Serializable {
         this.source = source;
     }
 
-    public String getCode() { return code;  }
+    public String getPublicNum() {
+        return publicNum;
+    }
 
-    public void setCode(String code) { this.code = code;  }
+    public void setPublicNum(String publicNum) {
+        this.publicNum = publicNum;
+    }
 
     public Integer getViewCount() {
         return viewCount;
