@@ -18,4 +18,8 @@ public class FrontLinksController {
         return "website/notice_list";
     }
 
+    @GetMapping("/detail")
+    public String detail() {
+        return "";
+    }
 }
