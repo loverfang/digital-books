@@ -134,7 +134,7 @@
         update
             cms_data
         set
-            status = #{param.stauts}
+            status = #{param.status}
         where data_id in
         <foreach collection="param.ids" item="item" open="(" close=")" separator=",">
             #{item}

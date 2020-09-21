@@ -14,6 +14,6 @@ import java.util.List;
  */
 @Mapper
 public interface CmsDataFileMapper extends BaseMapper<CmsDataFileEntity>{
-   int insertBatchDataFiles(@Param("fileList") List<CmsDataFileEntity> list);
-   int deleteDataFilesByDataId(Long dataId);
+   Integer insertBatchDataFiles(@Param("fileList") List<CmsDataFileEntity> list);
+   Integer deleteDataFilesByDataId(Long dataId);
 }

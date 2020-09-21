@@ -1,4 +1,4 @@
-package com.echuang.modules.website.controller;
+package com.echuang.modules.cms.websitecontroller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

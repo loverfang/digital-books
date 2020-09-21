@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.PageUtils;
 import com.echuang.common.utils.Query;
+import com.echuang.common.utils.SnowflakeIdWorker;
 import com.echuang.modules.cms.entity.CmsLinkEntity;
 import com.echuang.modules.cms.mapper.CmsLinkMapper;
 import com.echuang.modules.cms.service.CmsLinkService;
@@ -35,6 +36,10 @@ public class CmsLinkServiceImpl extends ServiceImpl<CmsLinkMapper, CmsLinkEntity
 
     @Override
     public int saveCmsLink(CmsLinkEntity cmsLink) {
+        // 保存基本信息
+        Long linkId = SnowflakeIdWorker.getSnowflakeId();
+        cmsLink.setLinkId( linkId );
+        cmsLink.setStatus(1);
         return this.baseMapper.insert( cmsLink );
     }
 

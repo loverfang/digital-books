@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.PageUtils;
 import com.echuang.common.utils.Query;
+import com.echuang.common.utils.SnowflakeIdWorker;
 import com.echuang.modules.cms.entity.CmsNoticeEntity;
 import com.echuang.modules.cms.mapper.CmsNoticeMapper;
 import com.echuang.modules.cms.service.CmsNoticeService;
@@ -35,6 +36,8 @@ public class CmsNoticeServiceImpl extends ServiceImpl<CmsNoticeMapper, CmsNotice
 
     @Override
     public int saveCmsNotice(CmsNoticeEntity cmsNotice) {
+        Long noticeId = SnowflakeIdWorker.getSnowflakeId();
+        cmsNotice.setNoticeId( noticeId );
         return this.baseMapper.insert( cmsNotice );
     }
 

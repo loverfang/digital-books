@@ -32,19 +32,19 @@ public class LinkController extends AbstractController {
 
     @PostMapping("/add")
     public ResultResponse add(@RequestBody CmsLinkEntity cmsLinkEntity){
-        cmsLinkService.save(cmsLinkEntity);
+        cmsLinkService.saveCmsLink(cmsLinkEntity);
         return ResultResponse.ok();
     }
 
     @PostMapping("/update")
     public ResultResponse update(@RequestBody CmsLinkEntity cmsLinkEntity){
-        cmsLinkService.saveOrUpdate(cmsLinkEntity);
+        cmsLinkService.updateCmsLink(cmsLinkEntity);
         return ResultResponse.ok();
     }
 
     @PostMapping("/del")
     public ResultResponse del(@RequestBody List<Long> ids){
-        cmsLinkService.removeByIds(ids);
+        cmsLinkService.deleteCmsLink(ids);
         return ResultResponse.ok();
     }
 

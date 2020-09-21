@@ -1,22 +1,15 @@
-package com.echuang.modules.cms.entity;
+package com.echuang.modules.cms.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
  * @Author Luo.z.x
- * @Date 2020/8/29 9:33
+ * @Date 2020/9/21 17:15
  * @Version 1.0
  */
-@TableName("cms_notice")
-public class CmsNoticeEntity implements Serializable{
-    @TableId(value = "notice_id",type = IdType.INPUT)
+public class CmsNoticeDTO implements Serializable {
     private Long noticeId;
 
-    @NotBlank(message = "通知标题不能为空")
     private String title;
 
     /**
@@ -36,7 +29,7 @@ public class CmsNoticeEntity implements Serializable{
      */
     private String publicTime;
 
-    public CmsNoticeEntity() { }
+    public CmsNoticeDTO() { }
 
     public Long getNoticeId() {
         return noticeId;

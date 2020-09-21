@@ -68,8 +68,7 @@ public class DataController {
      */
     @GetMapping("/detail")
     public ResultResponse detail(Long id){
-        cmsDataService.getCmsDataById(id);
-        return ResultResponse.ok();
+        return ResultResponse.ok().put("dataInfo", cmsDataService.getCmsDataById(id));
     }
 
     /**

@@ -1,22 +1,17 @@
-package com.echuang.modules.cms.entity;
+package com.echuang.modules.cms.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import javax.validation.constraints.NotBlank;
+import com.echuang.modules.cms.entity.CmsDataFileEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * @Author Luo.z.x
- * @Date 2020/8/29 9:40
+ * @Date 2020/9/21 16:44
  * @Version 1.0
  */
-@TableName("cms_data")
-public class CmsDataEntity  implements Serializable {
-    @TableId(value="data_id", type= IdType.INPUT)
+public class CmsDataDTO implements Serializable {
     private Long dataId;
     /**
      * 资料类别Id
@@ -25,12 +20,10 @@ public class CmsDataEntity  implements Serializable {
     /**
      * 资料名称
      */
-    @NotBlank(message = "资料名称不能为空")
     private String name;
     /**
      * 资料摘要
      */
-    @NotBlank(message = "资料摘要不能为空")
     private String abstracts;
     /**
      * 资料内容
@@ -75,13 +68,11 @@ public class CmsDataEntity  implements Serializable {
     /**
      * 资料类别名称
      */
-    @TableField(exist = false)
     private String categoryName;
 
-    @TableField(exist = false)
     private List<CmsDataFileEntity> dataFileList;
 
-    public CmsDataEntity() {  }
+    public CmsDataDTO() { }
 
     public Long getDataId() {
         return dataId;
@@ -91,18 +82,12 @@ public class CmsDataEntity  implements Serializable {
         this.dataId = dataId;
     }
 
-    public Long getCategoryId() { return categoryId; }
+    public Long getCategoryId() {
+        return categoryId;
+    }
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public String getName() {
@@ -133,7 +118,9 @@ public class CmsDataEntity  implements Serializable {
         return coverImgUrl;
     }
 
-    public void setCoverImgUrl(String coverImgUrl) { this.coverImgUrl = coverImgUrl; }
+    public void setCoverImgUrl(String coverImgUrl) {
+        this.coverImgUrl = coverImgUrl;
+    }
 
     public String getAuthor() {
         return author;
@@ -147,7 +134,9 @@ public class CmsDataEntity  implements Serializable {
         return platform;
     }
 
-    public void setPlatform(String platform) { this.platform = platform; }
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
 
     public String getSource() {
         return source;
@@ -189,10 +178,20 @@ public class CmsDataEntity  implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateTime() { return createTime; }
+    public Date getCreateTime() {
+        return createTime;
+    }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<CmsDataFileEntity> getDataFileList() {
