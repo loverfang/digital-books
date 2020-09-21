@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author Luo.z.x
@@ -79,7 +79,7 @@ public class CmsDataEntity  implements Serializable {
     private String categoryName;
 
     @TableField(exist = false)
-    private CmsDataFileEntity cmsDataFile;
+    private List<CmsDataFileEntity> dataFileList;
 
     public CmsDataEntity() {  }
 
@@ -195,11 +195,11 @@ public class CmsDataEntity  implements Serializable {
         this.createTime = createTime;
     }
 
-    public CmsDataFileEntity getCmsDataFile() {
-        return cmsDataFile;
+    public List<CmsDataFileEntity> getDataFileList() {
+        return dataFileList;
     }
 
-    public void setCmsDataFile(CmsDataFileEntity cmsDataFile) {
-        this.cmsDataFile = cmsDataFile;
+    public void setDataFileList(List<CmsDataFileEntity> dataFileList) {
+        this.dataFileList = dataFileList;
     }
 }
