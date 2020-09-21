@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.echuang.modules.cms.mapper.CmsNoticeMapper">
     <select id="queryPageList" resultType="java.util.Map">
-        select * from cms_notice
+        select * from cms_notice order by public_time desc
     </select>
 </mapper>

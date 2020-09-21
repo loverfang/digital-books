@@ -1,5 +1,6 @@
 package com.echuang.modules.cms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.PageUtils;
@@ -31,7 +32,6 @@ public class FrontNoticeServiceImpl extends ServiceImpl<CmsNoticeMapper, CmsNoti
     public PageUtils noticeList(Integer pageNo, Integer pageSize) {
         // 新建分页
         Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo, pageSize);
-
         List<Map<String,Object>> resultList = cmsNoticeMapper.queryPageList(page, null);
         return  new PageUtils(page.setRecords(resultList));
     }
@@ -46,6 +46,4 @@ public class FrontNoticeServiceImpl extends ServiceImpl<CmsNoticeMapper, CmsNoti
         }
         return resultDTO;
     }
-
-
 }

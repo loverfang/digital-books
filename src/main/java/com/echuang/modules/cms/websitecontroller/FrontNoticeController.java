@@ -26,15 +26,18 @@ public class FrontNoticeController {
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "pageNo", required = false) Integer pageNo, @RequestParam(value = "pageSize", required = false) Integer pageSize){
-        Map<String, Object> result = new HashMap<>();
-        PageUtils resultPage =  frontNoticeService.noticeList(pageNo,pageSize);
+        // 内容分页列表
+        Integer page = pageNo==null?1:pageNo;
+        Integer limit = pageSize==null?10:pageSize;
 
+        Map<String, Object> result = new HashMap<>();
+        PageUtils resultPage =  frontNoticeService.noticeList(page, limit);
         result.put("page", resultPage);
         return "website/notice_list";
     }
 
     @GetMapping("/detail")
-    public String detail(Long id) {
+    public String detail(@RequestParam(value = "id", required = true)Long id) {
         CmsNoticeDTO cmsNoticeDTO = frontNoticeService.noticeDetail(id);
         Map<String,Object> result = new HashMap<>();
         result.put("noticeInfo",cmsNoticeDTO);

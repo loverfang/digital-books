@@ -25,17 +25,19 @@ public class FrontDataController {
     FrontDataService frontDataService;
 
     @GetMapping("/list")
-    public String list(@RequestParam(required = false) Long parentId, @RequestParam(required = false) Long categoryId, Integer page, Integer limit){
+    public String list(@RequestParam(required = false) Long parentId, @RequestParam(required = false) Long categoryId, Integer pageNo, Integer pageSize){
+        // 内容分页列表
+        Integer page = pageNo==null?1:pageNo;
+        Integer limit = pageSize==null?10:pageSize;
+
         // 左侧同级列表
         List<CmsCategoryDTO>  categoryDTOList = categoryListByParentId(parentId);
         Map<String, Object> result = new HashMap<>();
         result.put("categoryList", categoryDTOList);
 
-        // 内容分页列表
-        Integer pageNo = page==null?1:page;
-        Integer pageSize = limit==null?10:limit;
 
-        PageUtils resultPage = frontDataService.dataListByCategoryId(categoryId, pageNo, pageSize);
+
+        PageUtils resultPage = frontDataService.dataListByCategoryId(categoryId, page, limit);
         result.put("page", resultPage);
         return "website/product_list";
     }
