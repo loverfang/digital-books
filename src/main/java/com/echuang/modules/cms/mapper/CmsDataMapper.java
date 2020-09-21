@@ -35,5 +35,5 @@ public interface CmsDataMapper extends BaseMapper<CmsDataEntity> {
      */
     CmsDataEntity getCmsDataById(Long id);
 
-    void updateStatusBatchByMap(Map<String, Object> param);
+    int updateStatusBatchByMap(Map<String, Object> param);
 }

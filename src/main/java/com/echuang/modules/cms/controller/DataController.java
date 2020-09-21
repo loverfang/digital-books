@@ -46,7 +46,6 @@ public class DataController {
      */
     @PostMapping("/add")
     public ResultResponse add(@RequestBody CmsDataEntity cmsData){
-
         cmsDataService.saveCmsData(cmsData);
         return ResultResponse.ok();
     }
@@ -80,7 +79,6 @@ public class DataController {
      */
     @PostMapping("/del")
     public ResultResponse del(@RequestBody List<Long> ids){
-
         if(CollectionUtils.isEmpty(ids)){
             throw new RRException("删除id列表为空!");
         }

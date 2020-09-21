@@ -12,6 +12,7 @@ import com.echuang.modules.cms.entity.CmsDataFileEntity;
 import com.echuang.modules.cms.mapper.CmsDataFileMapper;
 import com.echuang.modules.cms.mapper.CmsDataMapper;
 import com.echuang.modules.cms.service.CmsDataService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ import java.util.Map;
 public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity> implements CmsDataService{
 
     @Resource
-    private CmsDataMapper cmsDataMapper;
+    CmsDataMapper cmsDataMapper;
     @Resource
     CmsDataFileMapper cmsDataFileMapper;
 
@@ -48,6 +49,7 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveCmsData(CmsDataEntity cmsDataEntity) {
+        // 保存基本信息
         Long dataId = SnowflakeIdWorker.getSnowflakeId();
         cmsDataEntity.setDataId( dataId );
         cmsDataEntity.setViewCount(0);
@@ -56,22 +58,35 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
         cmsDataEntity.setCreateTime(new Date());
         cmsDataMapper.insert(cmsDataEntity);
 
-        Long dataFileId = SnowflakeIdWorker.getSnowflakeId();
-        CmsDataFileEntity dataFileEntity = cmsDataEntity.getCmsDataFile();
-        if(dataFileEntity == null){
-           dataFileEntity  = new CmsDataFileEntity();
+        // 批量保存文件信息
+        List<CmsDataFileEntity> dataFileList = cmsDataEntity.getDataFileList();
+        if(CollectionUtils.isNotEmpty(dataFileList)){
+            dataFileList.forEach( file -> {
+                Long dataFileId = SnowflakeIdWorker.getSnowflakeId();
+                file.setFileId( dataFileId );
+                file.setDataId( dataId );
+            });
+            cmsDataFileMapper.insertBatchDataFiles(dataFileList);
         }
-
-        dataFileEntity.setFileId(dataFileId);
-        dataFileEntity.setDataId(dataId);
-        cmsDataFileMapper.insert(dataFileEntity);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveOrUpdateCmsData(CmsDataEntity cmsDataEntity) {
         cmsDataMapper.updateById(cmsDataEntity);
-        cmsDataFileMapper.updateById(cmsDataEntity.getCmsDataFile());
+        // 删除所有附件信息
+        cmsDataFileMapper.deleteDataFilesByDataId(cmsDataEntity.getDataId());
+
+        // 重新插入新的附件记录
+        List<CmsDataFileEntity> dataFileList = cmsDataEntity.getDataFileList();
+        if(CollectionUtils.isNotEmpty(dataFileList)){
+            dataFileList.forEach( file -> {
+                Long dataFileId = SnowflakeIdWorker.getSnowflakeId();
+                file.setFileId( dataFileId );
+                file.setDataId( cmsDataEntity.getDataId() );
+            });
+            cmsDataFileMapper.insertBatchDataFiles(dataFileList);
+        }
     }
 
     @Override
@@ -84,5 +99,4 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
     public void updateStatusBatchByMap(Map<String, Object> param) {
         cmsDataMapper.updateStatusBatchByMap(param);
     }
-
 }

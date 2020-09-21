@@ -2,7 +2,7 @@ package com.echuang.modules.cms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.echuang.common.utils.PageUtils;
-import com.echuang.modules.cms.entity.CmsLinkEntity;
+import com.echuang.modules.cms.entity.CmsNoticeEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * @Date 2020/8/29 9:04
  * @Version 1.0
  */
-public interface CmsLinkService extends IService<CmsLinkEntity> {
+public interface CmsNoticeService extends IService<CmsNoticeEntity> {
 
     /**
      * 分页查询链接列表
@@ -21,10 +21,10 @@ public interface CmsLinkService extends IService<CmsLinkEntity> {
      */
     PageUtils queryPageList(Map<String,Object> queryMap);
 
-    int saveCmsLink(CmsLinkEntity cmsLink);
+    int saveCmsNotice(CmsNoticeEntity cmsNotice);
 
-    int updateCmsLink(CmsLinkEntity cmsLink);
+    int updateCmsNotice(CmsNoticeEntity cmsNotice);
 
-    int deleteCmsLink(List<Long> ids);
+    int deleteCmsNotice(List<Long> ids);
 
 }

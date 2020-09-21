@@ -3,6 +3,9 @@ package com.echuang.modules.cms.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.echuang.modules.cms.entity.CmsDataFileEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author Luo.z.x
@@ -11,4 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CmsDataFileMapper extends BaseMapper<CmsDataFileEntity>{
+   int insertBatchDataFiles(@Param("fileList") List<CmsDataFileEntity> list);
+   int deleteDataFilesByDataId(Long dataId);
 }

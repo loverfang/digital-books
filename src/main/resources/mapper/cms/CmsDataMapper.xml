@@ -3,6 +3,7 @@
 
 <mapper namespace="com.echuang.modules.cms.mapper.CmsDataMapper">
     <cache-ref namespace="com.echuang.modules.cms.mapper.CmsDataMapper"/>
+
     <sql id="queryPageListFiled">
             d.data_id,
             d.category_id,
@@ -17,26 +18,75 @@
             d.view_count,
             d.down_count,
             d.status,
-            d.create_time,
-            df.file_id,
-            df.file_name,
-            df.file_size,
-            df.file_path,
-            df.file_type
+            d.create_time
     </sql>
 
     <resultMap id="dataListMap" type="com.echuang.modules.cms.entity.CmsDataEntity">
         <result column="data_id"  property="dataId" />
+        <result column="category_id"  property="categoryId" />
+        <result column="category_name"  property="categoryName" />
+        <result column="name"  property="name" />
+        <result column="abstracts"  property="abstracts" />
+        <result column="content"  property="content" />
+        <result column="cover_img_url"  property="coverImgUrl" />
+        <result column="author"  property="author" />
+        <result column="platform"  property="platform" />
+        <result column="source"  property="source" />
+        <result column="public_num"  property="publicNum" />
+        <result column="view_count"  property="viewCount" />
+        <result column="down_count"  property="downCount" />
+        <result column="status"  property="status" />
+        <result column="create_time"  property="createTime" />
     </resultMap>
 
-    <!-- 查询用户的所有权限 -->
+    <resultMap id="dataDetailMap" type="com.echuang.modules.cms.entity.CmsDataEntity">
+        <result column="data_id"  property="dataId" />
+        <result column="category_id"  property="categoryId" />
+        <result column="category_name"  property="categoryName" />
+        <result column="name"  property="name" />
+        <result column="abstracts"  property="abstracts" />
+        <result column="content"  property="content" />
+        <result column="cover_img_url"  property="coverImgUrl" />
+        <result column="author"  property="author" />
+        <result column="platform"  property="platform" />
+        <result column="source"  property="source" />
+        <result column="public_num"  property="publicNum" />
+        <result column="view_count"  property="viewCount" />
+        <result column="down_count"  property="downCount" />
+        <result column="status"  property="status" />
+        <result column="create_time"  property="createTime" />
+        <collection property="dataFileList" ofType="com.echuang.modules.cms.entity.CmsDataFileEntity">
+            <result property="fileId" column="file_id"/>
+            <result property="dataId" column="data_id"/>
+            <result property="fileName" column="file_name"/>
+            <result property="fileSize" column="file_size"/>
+            <result property="filePath" column="file_path"/>
+            <result property="fileType" column="file_type"/>
+        </collection>
+    </resultMap>
+
+    <!-- 查询资料列表 -->
     <select id="queryPageList" resultMap="dataListMap">
         select
-            d.data_id
+            d.data_id,
+            d.category_id,
+            c.category_name,
+            d.name,
+            d.abstracts,
+            d.content,
+            d.cover_img_url,
+            d.author,
+            d.platform,
+            d.source,
+            d.public_num,
+            d.view_count,
+            d.down_count,
+            d.status,
+            d.create_time
         from cms_data as d
-            inner join cms_category as cg on cg.category_id = d.category_id
-            left join cms_data_file as df on d.data_id = df.data_id
+            inner join cms_category as c on c.category_id = d.category_id
         <where>
+            and d.status = 1
              <if test="params.category_id != null">
                  and d.category_id = #{params.categoryId}
              </if>
@@ -52,13 +102,32 @@
         </where>
     </select>
 
-    <select id="getCmsDataById" resultType="com.echuang.modules.cms.entity.CmsDataEntity">
-        select
-            <include refid="queryPageListFiled"></include>
-        from cms_data as d
-            inner join cms_category as cg on cg.category_id = d.category_id
-            left join cms_data_file as df on d.data_id = df.data_id
-        where d.data_id = #{id}
+    <select id="getCmsDataById" resultMap="dataDetailMap">
+        SELECT
+          d.data_id,
+          d.category_id,
+          d.name,
+          d.abstracts,
+          d.content,
+          d.cover_img_url,
+          d.author,
+          d.platform,
+          d.source,
+          d.public_num,
+          d.view_count,
+          d.down_count,
+          d.status,
+          d.create_time,
+          c.category_name,
+          f.file_id,
+          f.file_name,
+          f.file_size,
+          f.file_path,
+          f.file_type
+        FROM cms_data as d
+          INNER JOIN cms_category as c on c.category_id = d.category_id
+          LEFT JOIN cms_data_file as f on f.data_id = d.data_id
+        WHERE d.data_id = #{dataId}
     </select>
 
     <update id="updateStatusBatchByMap" parameterType="java.util.Map">
@@ -71,5 +140,4 @@
             #{item}
         </foreach>
     </update>
-
 </mapper>

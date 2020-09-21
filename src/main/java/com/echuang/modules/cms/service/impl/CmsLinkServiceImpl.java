@@ -11,6 +11,7 @@ import com.echuang.modules.cms.service.CmsLinkService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,4 +33,18 @@ public class CmsLinkServiceImpl extends ServiceImpl<CmsLinkMapper, CmsLinkEntity
         return new PageUtils(page);
     }
 
+    @Override
+    public int saveCmsLink(CmsLinkEntity cmsLink) {
+        return this.baseMapper.insert( cmsLink );
+    }
+
+    @Override
+    public int updateCmsLink(CmsLinkEntity cmsLink) {
+        return this.baseMapper.updateById(cmsLink);
+    }
+
+    @Override
+    public int deleteCmsLink(List<Long> ids) {
+        return this.baseMapper.deleteBatchIds(ids);
+    }
 }

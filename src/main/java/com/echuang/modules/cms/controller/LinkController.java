@@ -22,29 +22,29 @@ import java.util.Map;
 public class LinkController extends AbstractController {
 
     @Resource
-    private CmsLinkService csLinkService;
+    private CmsLinkService cmsLinkService;
 
     @GetMapping("/list")
     public ResultResponse list(@RequestParam Map<String, Object> params) {
-        PageUtils page = csLinkService.queryPageList( params );
+        PageUtils page = cmsLinkService.queryPageList( params );
         return ResultResponse.ok().put("page", page);
     }
 
     @PostMapping("/add")
     public ResultResponse add(@RequestBody CmsLinkEntity cmsLinkEntity){
-        csLinkService.save(cmsLinkEntity);
+        cmsLinkService.save(cmsLinkEntity);
         return ResultResponse.ok();
     }
 
     @PostMapping("/update")
     public ResultResponse update(@RequestBody CmsLinkEntity cmsLinkEntity){
-        csLinkService.saveOrUpdate(cmsLinkEntity);
+        cmsLinkService.saveOrUpdate(cmsLinkEntity);
         return ResultResponse.ok();
     }
 
     @PostMapping("/del")
     public ResultResponse del(@RequestBody List<Long> ids){
-        csLinkService.removeByIds(ids);
+        cmsLinkService.removeByIds(ids);
         return ResultResponse.ok();
     }
 
