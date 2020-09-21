@@ -72,6 +72,9 @@ public class CategoryController {
     public ResultResponse delete(@RequestBody List<Long> categoryIds){
         Integer status = 0;
         int updateResult = cmsCategoryService.updateStatus( categoryIds.get(0), status);
+        if(updateResult == -1){
+            return ResultResponse.error("系统菜单无法删除！");
+        }
         if(updateResult ==0){
           return ResultResponse.error("该类型下有子类型，请先删除子类型再进行操作！");
         }

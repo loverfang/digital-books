@@ -44,7 +44,6 @@ public class IndexController {
     public String index(){
         Map<String,Object> dataMap = new HashMap<>();
         logger.info("enter index ...");
-
         // 情报中心产品
         // 集团中心产品
         // 刊物
@@ -68,7 +67,6 @@ public class IndexController {
     public String search(String keyword){
         return "website/search_result";
     }
-
 
     /**
      * 通知列表

@@ -83,19 +83,27 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
 
     @Override
     public int updateStatus(Long categoryId, Integer status){
+        CmsCategoryEntity categoryEntity = cmsCategoryMapper.selectById(categoryId);
+        if(categoryEntity!=null){
+            Integer isDefault = categoryEntity.getIsDefault();
+            if(isDefault == 1){
+                return -1;
+            }
+        }
+
         List<Map<String,Object>> childList = cmsCategoryMapper.childList(categoryId);
         if(CollectionUtils.isNotEmpty(childList) && childList.size()>0) {
             return 0;
         }else{
-            CmsCategoryEntity categoryEntity = new CmsCategoryEntity();
-            categoryEntity.setCategoryId(categoryId);
-            categoryEntity.setStatus(status);
+            CmsCategoryEntity updateCategoryEntity = new CmsCategoryEntity();
+            updateCategoryEntity.setCategoryId(categoryId);
+            updateCategoryEntity.setStatus(status);
 
             //修改条件s
             UpdateWrapper<CmsCategoryEntity> userUpdateWrapper = new UpdateWrapper<>();
             userUpdateWrapper.eq("category_id", categoryId);
 
-            return cmsCategoryMapper.update(categoryEntity, userUpdateWrapper);
+            return cmsCategoryMapper.update(updateCategoryEntity, userUpdateWrapper);
         }
     }
 }

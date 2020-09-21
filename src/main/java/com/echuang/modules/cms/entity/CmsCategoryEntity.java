@@ -29,6 +29,8 @@ public class CmsCategoryEntity  implements Serializable {
 
     @NotBlank(message = "型状态")
     private Integer status;
+    @NotBlank(message = "是否为系统菜单")
+    private Integer isDefault;
 
     private String remark;
 
@@ -87,6 +89,10 @@ public class CmsCategoryEntity  implements Serializable {
     public Integer getStatus() { return status; }
 
     public void setStatus(Integer status) { this.status = status; }
+
+    public Integer getIsDefault() { return isDefault; }
+
+    public void setIsDefault(Integer isDefault) { this.isDefault = isDefault; }
 
     public String getRemark() {
         return remark;
