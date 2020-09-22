@@ -42,7 +42,12 @@ public class LinkController extends AbstractController {
         return ResultResponse.ok();
     }
 
-    @PostMapping("/del")
+    @GetMapping("/detail")
+    public ResultResponse detail(Long id){
+        return ResultResponse.ok().put("linkInfo",cmsLinkService.getCmsLinkById(id));
+    }
+
+    @PostMapping("/delete")
     public ResultResponse del(@RequestBody List<Long> ids){
         cmsLinkService.deleteCmsLink(ids);
         return ResultResponse.ok();

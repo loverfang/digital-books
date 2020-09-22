@@ -76,7 +76,7 @@ public class DataController {
      * @param ids
      * @return
      */
-    @PostMapping("/del")
+    @PostMapping("/delete")
     public ResultResponse del(@RequestBody List<Long> ids){
         if(CollectionUtils.isEmpty(ids)){
             throw new RRException("删除id列表为空!");

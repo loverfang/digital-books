@@ -8,6 +8,7 @@ import com.echuang.modules.cms.service.FrontDataService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,8 +25,8 @@ public class FrontDataController {
     @Resource
     FrontDataService frontDataService;
 
-    @GetMapping("/list")
-    public String list(@RequestParam(required = false) Long parentId, @RequestParam(required = false) Long categoryId, Integer pageNo, Integer pageSize){
+    @GetMapping(value={"/list/{parentId}/{categoryId}/"} )
+    public String list(@PathVariable("parentId") Long parentId, @PathVariable("categoryId") Long categoryId, Integer pageNo, Integer pageSize){
         // 内容分页列表
         Integer page = pageNo==null?1:pageNo;
         Integer limit = pageSize==null?10:pageSize;
@@ -35,10 +36,11 @@ public class FrontDataController {
         Map<String, Object> result = new HashMap<>();
         result.put("categoryList", categoryDTOList);
 
-
-
         PageUtils resultPage = frontDataService.dataListByCategoryId(categoryId, page, limit);
         result.put("page", resultPage);
+        if(555555 == parentId){
+            return "website/qikan_list";
+        }
         return "website/product_list";
     }
 

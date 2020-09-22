@@ -55,7 +55,7 @@
         <result column="down_count"  property="downCount" />
         <result column="status"  property="status" />
         <result column="create_time"  property="createTime" />
-        <collection property="dataFileList" ofType="com.echuang.modules.cms.entity.CmsDataFileEntity">
+        <collection property="dataFileList" ofType="com.echuang.modules.cms.entity.CmsDataFileEntity" notNullColumn="file_id">
             <result property="fileId" column="file_id"/>
             <result property="dataId" column="data_id"/>
             <result property="fileName" column="file_name"/>
@@ -87,7 +87,7 @@
             inner join cms_category as c on c.category_id = d.category_id
         <where>
             and d.status = 1
-             <if test="params.category_id != null">
+             <if test="params.categoryId != null">
                  and d.category_id = #{params.categoryId}
              </if>
              <if test="params.name !=null and params.name != ''">

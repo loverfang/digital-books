@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author Luo.z.x
@@ -32,9 +33,13 @@ public class CmsNoticeEntity implements Serializable{
      */
     private String author;
     /**
+     * 显示顺序
+     */
+    private Integer priority;
+    /**
      * 发布时间
      */
-    private String publicTime;
+    private Date publicTime;
 
     public CmsNoticeEntity() { }
 
@@ -78,11 +83,15 @@ public class CmsNoticeEntity implements Serializable{
         this.author = author;
     }
 
-    public String getPublicTime() {
+    public Integer getPriority() { return priority; }
+
+    public void setPriority(Integer priority) { this.priority = priority; }
+
+    public Date getPublicTime() {
         return publicTime;
     }
 
-    public void setPublicTime(String publicTime) {
+    public void setPublicTime(Date publicTime) {
         this.publicTime = publicTime;
     }
 }

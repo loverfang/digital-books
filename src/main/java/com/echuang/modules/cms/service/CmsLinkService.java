@@ -27,4 +27,5 @@ public interface CmsLinkService extends IService<CmsLinkEntity> {
 
     int deleteCmsLink(List<Long> ids);
 
+    CmsLinkEntity getCmsLinkById(Long id);
 }

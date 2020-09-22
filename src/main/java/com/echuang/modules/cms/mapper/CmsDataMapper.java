@@ -26,7 +26,7 @@ public interface CmsDataMapper extends BaseMapper<CmsDataEntity> {
      * @param paramMap
      * @return
      */
-    List<Map<String,Object>> queryPageList(@Param("page") Page<Map<String,Object>> page, @Param("params")Map<String, Object> paramMap);
+    IPage<Map<String,Object>> queryPageList(@Param("page") Page<Map<String,Object>> page, @Param("params")Map<String, Object> paramMap);
 
     /**
      * 加载资料详情

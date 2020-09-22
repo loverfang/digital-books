@@ -31,7 +31,7 @@ public class CategoryController {
     @GetMapping("/list")
     public ResultResponse list(@RequestParam Map<String, Object> params) {
         Integer pageNo = params.get("page")==null?1:Integer.valueOf((String)params.get("page"));
-        Integer limit = params.get("limit")==null?1:Integer.valueOf((String)params.get("limit"));
+        Integer limit = params.get("limit")==null?10:Integer.valueOf((String)params.get("limit"));
 
         PageUtils page = cmsCategoryService.queryPageByParent(params ,pageNo, limit);
         return ResultResponse.ok().put("page", page);

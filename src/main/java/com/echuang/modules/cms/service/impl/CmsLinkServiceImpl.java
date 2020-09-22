@@ -52,4 +52,9 @@ public class CmsLinkServiceImpl extends ServiceImpl<CmsLinkMapper, CmsLinkEntity
     public int deleteCmsLink(List<Long> ids) {
         return this.baseMapper.deleteBatchIds(ids);
     }
+
+    @Override
+    public CmsLinkEntity getCmsLinkById(Long id) {
+        return this.baseMapper.selectById(id);
+    }
 }

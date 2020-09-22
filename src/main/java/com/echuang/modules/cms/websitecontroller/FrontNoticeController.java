@@ -5,6 +5,7 @@ import com.echuang.modules.cms.dto.CmsNoticeDTO;
 import com.echuang.modules.cms.service.FrontNoticeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,8 +37,8 @@ public class FrontNoticeController {
         return "website/notice_list";
     }
 
-    @GetMapping("/detail")
-    public String detail(@RequestParam(value = "id", required = true)Long id) {
+    @GetMapping(value={"/detail/{id}.html"} )
+    public String detail(@PathVariable("id") Long id) {
         CmsNoticeDTO cmsNoticeDTO = frontNoticeService.noticeDetail(id);
         Map<String,Object> result = new HashMap<>();
         result.put("noticeInfo",cmsNoticeDTO);

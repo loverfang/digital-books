@@ -20,6 +20,7 @@ public class CmsLinkEntity implements Serializable {
     private String name;
     @NotBlank( message = "链接地址不能为空")
     private String url;
+    private Integer priority;
     private Integer status;
     private String remark;
 
@@ -47,6 +48,14 @@ public class CmsLinkEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public Integer getStatus() {

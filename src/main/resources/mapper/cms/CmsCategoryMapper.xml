@@ -31,6 +31,7 @@
         select
             c.category_id as categoryId,
             c.category_name as categoryName,
+            c.category_url as categoryUrl,
             c.parent_id as parentId,
             c.priority as priority,
             c.remark,

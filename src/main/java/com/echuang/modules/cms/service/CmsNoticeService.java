@@ -27,4 +27,5 @@ public interface CmsNoticeService extends IService<CmsNoticeEntity> {
 
     int deleteCmsNotice(List<Long> ids);
 
+    CmsNoticeEntity getCmsNoticeById(Long id);
 }

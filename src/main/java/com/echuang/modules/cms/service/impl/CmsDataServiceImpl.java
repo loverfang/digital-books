@@ -39,9 +39,11 @@ public class CmsDataServiceImpl extends ServiceImpl<CmsDataMapper, CmsDataEntity
     public PageUtils queryPageList(Map<String,Object> queryMap, int pageNo, int limit){
         // 新建分页
         Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo, limit);
+
         // 返回结果
-        List<Map<String,Object>> resultList = cmsDataMapper.queryPageList(page, queryMap);
-        return  new PageUtils(page.setRecords(resultList));
+        IPage<Map<String,Object>> resultPage = cmsDataMapper.queryPageList(page, queryMap);
+
+        return  new PageUtils(resultPage);
     }
 
     @Override

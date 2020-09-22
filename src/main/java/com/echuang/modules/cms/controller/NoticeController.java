@@ -39,7 +39,11 @@ public class NoticeController {
         cmsNoticeService.updateCmsNotice(cmsNotice);
         return ResultResponse.ok();
     }
-    @PostMapping("/del")
+    @GetMapping("/detail")
+    public ResultResponse detail(Long id){
+        return ResultResponse.ok().put("noticeInfo",cmsNoticeService.getCmsNoticeById(id));
+    }
+    @PostMapping("/delete")
     public ResultResponse del(@RequestBody List<Long> ids){
         cmsNoticeService.deleteCmsNotice(ids);
         return ResultResponse.ok();

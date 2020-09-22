@@ -12,6 +12,7 @@ import com.echuang.modules.cms.service.CmsNoticeService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,7 @@ public class CmsNoticeServiceImpl extends ServiceImpl<CmsNoticeMapper, CmsNotice
     public int saveCmsNotice(CmsNoticeEntity cmsNotice) {
         Long noticeId = SnowflakeIdWorker.getSnowflakeId();
         cmsNotice.setNoticeId( noticeId );
+        cmsNotice.setPublicTime( new Date() );
         return this.baseMapper.insert( cmsNotice );
     }
 
@@ -49,6 +51,11 @@ public class CmsNoticeServiceImpl extends ServiceImpl<CmsNoticeMapper, CmsNotice
     @Override
     public int deleteCmsNotice(List<Long> ids) {
         return this.baseMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public CmsNoticeEntity getCmsNoticeById(Long id) {
+        return this.baseMapper.selectById(id);
     }
 
 }
