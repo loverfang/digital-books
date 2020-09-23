@@ -38,7 +38,7 @@ public class FrontDataController {
 
         PageUtils resultPage = frontDataService.dataListByCategoryId(categoryId, page, limit);
         result.put("page", resultPage);
-        if(555555 == parentId){
+        if(5 == parentId){
             return "website/qikan_list";
         }
         return "website/product_list";

@@ -5,29 +5,23 @@
 <#--页面导航标签-->
 <#macro navigater navList navId>
    <#if navList??>
-    <ul>
-        <li><a href="${base}/" <#if navId??><#if navId==0>class="menu-active"</#if></#if>>首页
-            <!--[if IE 7]><!--></a><!--<![endif]-->
-            <!--[if lte IE 6]><table><tr><td><![endif]--><!--[if lte IE 6]></td></tr></table></a><![endif]-->
-        </li>
+    <ul class="nav movedx" style="position: relative;">
+       <li class="navitem"><a <#if navId??><#if navId==0>class="active"</#if></#if> href="/">首页</a></li>
        <#list navList as nav>
 	   <#if nav??>
-           <li><a href="">${nav.categoryName!''}<!--[if IE 7]><!--></a><!--<![endif]--><!--[if lte IE 6]><table><tr><td><![endif]-->
-               <#if nav.childList??><#if (nav.childList?size>0)>
-               <ul><#list nav.childList as childNav><#if childNav??>
-                   <li><a href="${childNav.categoryUrl!''}">${childNav.categoryName!''}</a></li></#if></#list>
-               </ul>
-               </#if></#if>
-               <!--[if lte IE 6]></td></tr></table></a><![endif]-->
-           </li>
+            <li class="navitem">
+              <a <#if nav.isLeaf==1>href="/${nav.channelPath}/${nav.channelId}/index.html"<#else>href="javascript:;"</#if> <#if navId == nav.channelId>class="active"</#if> >${nav.channelName!''}</a>
+              <#if nav.childChannel??><#if (nav.childChannel?size>0)>
+              <ul class="subnav"><#list nav.childChannel as childNav><#if childNav??>
+                <li><a href="/${nav.channelPath}/${childNav.channelId}/index.html">${childNav.channelName!''}</a></li></#if></#list>
+              </ul>
+              </#if></#if>
+            </li>
        </#if>
        </#list>
     </ul>
    </#if>
 </#macro>
-
-
-
 
 
 <#--footer 标签-->

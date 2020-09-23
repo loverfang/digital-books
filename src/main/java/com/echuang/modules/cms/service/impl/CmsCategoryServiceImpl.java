@@ -125,7 +125,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                     if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
                         tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
                     } else {
-                        tempDTO.setCategoryUrl("/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                        tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
                     }
                 }else {
                     tempDTO.setCategoryUrl("");
@@ -156,7 +156,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                     if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
                         tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
                     } else {
-                        tempDTO.setCategoryUrl("/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                        tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
                     }
                 }else {
                     tempDTO.setCategoryUrl("");
@@ -184,7 +184,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                 if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
                     tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
                 } else {
-                    tempDTO.setCategoryUrl("/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                    tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
                 }
 
                 navgaterList.add(tempDTO);
