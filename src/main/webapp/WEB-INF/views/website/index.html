@@ -17,6 +17,9 @@
     <div class="win1200">
         <div class="left-warp ">
             <div class="tit-2">情报中心产品</div>
+            <#if root.centerCategory??>
+            <#else>
+            </#if>
             <div class="small-tit-warp">
                 <div class="small-tit">专题报告</div>
                 <div class="more"><a href="${base}/product/list?parentId=1&categoryId=2">更多 <img src="${base}/website/images/arr.png"></a></div>
@@ -58,6 +61,7 @@
             </div>
 
             <div class="news-index-line"></div>
+
             <div class="small-tit-warp">
                 <div class="small-tit">电子快报</div>
                 <div class="more"><a href="">更多 <img src="${base}/website/images/arr.png"></a></div>
@@ -98,6 +102,7 @@
                     </li>
                 </ul>
             </div>
+
         </div>
 
         <div class="left-warp ">
