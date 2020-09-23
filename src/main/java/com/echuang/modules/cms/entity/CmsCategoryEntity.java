@@ -22,17 +22,21 @@ public class CmsCategoryEntity  implements Serializable {
     private String categoryUrl;
 
     @NotBlank(message = "父类ID不能为空")
-    private String parentId;
+    private Long parentId;
 
     @NotBlank(message = "显示顺序不能为空")
     private Integer priority;
 
     @NotBlank(message = "型状态")
     private Integer status;
+
     @NotBlank(message = "是否为系统菜单")
     private Integer isDefault;
 
+    private String coverUrl;
+
     private String remark;
+
 
     @TableField(exist = false)
     private String parentName;
@@ -42,7 +46,7 @@ public class CmsCategoryEntity  implements Serializable {
 
     public CmsCategoryEntity() { }
 
-    public CmsCategoryEntity(Long categoryId, @NotBlank(message = "类型名称不能为空") String categoryName, @NotBlank(message = "父类ID不能为空") String parentId, @NotBlank(message = "显示顺序不能为空") Integer priority, String remark) {
+    public CmsCategoryEntity(Long categoryId, @NotBlank(message = "类型名称不能为空") String categoryName, @NotBlank(message = "父类ID不能为空") Long parentId, @NotBlank(message = "显示顺序不能为空") Integer priority, String remark) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.parentId = parentId;
@@ -70,11 +74,11 @@ public class CmsCategoryEntity  implements Serializable {
 
     public void setCategoryUrl(String categoryUrl) { this.categoryUrl = categoryUrl; }
 
-    public String getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -109,6 +113,10 @@ public class CmsCategoryEntity  implements Serializable {
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
+
+    public String getCoverUrl() {  return coverUrl;  }
+
+    public void setCoverUrl(String coverUrl) { this.coverUrl = coverUrl; }
 
     public List<CmsCategoryEntity> getChildren() {
         return children;

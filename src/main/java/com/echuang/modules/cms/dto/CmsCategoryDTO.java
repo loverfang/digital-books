@@ -13,7 +13,17 @@ public class CmsCategoryDTO implements Serializable {
     private Long parentId;
     private String categoryName;
     private String categoryUrl;
+    private String coverUrl;
+    /** 子类别列表  **/
     private List<CmsCategoryDTO> childList;
+    /** 类属新闻列表  **/
+    private List<CmsDataDTO> dataList;
+
+    public CmsCategoryDTO(Long categoryId, Long parentId, String categoryName) {
+        this.categoryId = categoryId;
+        this.parentId = parentId;
+        this.categoryName = categoryName;
+    }
 
     public CmsCategoryDTO() { }
 
@@ -49,7 +59,13 @@ public class CmsCategoryDTO implements Serializable {
         return childList;
     }
 
-    public void setChildList(List<CmsCategoryDTO> childList) {
-        this.childList = childList;
-    }
+    public String getCoverUrl() { return coverUrl;  }
+
+    public void setCoverUrl(String coverUrl) { this.coverUrl = coverUrl; }
+
+    public void setChildList(List<CmsCategoryDTO> childList) { this.childList = childList;  }
+
+    public List<CmsDataDTO> getDataList() {  return dataList;  }
+
+    public void setDataList(List<CmsDataDTO> dataList) { this.dataList = dataList; }
 }

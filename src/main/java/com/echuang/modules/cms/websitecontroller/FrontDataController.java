@@ -60,17 +60,7 @@ public class FrontDataController {
      * @return
      */
     private List<CmsCategoryDTO> categoryListByParentId(Long parentId){
-        List<CmsCategoryEntity> categoryEntityList = frontDataService.categoryListByParentId(parentId);
-        List<CmsCategoryDTO> categoryDTOList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(categoryEntityList) && categoryEntityList.size()>0){
-            for(CmsCategoryEntity category : categoryEntityList){
-                CmsCategoryDTO categoryDTO = new CmsCategoryDTO();
-                categoryDTO.setCategoryId(category.getCategoryId());
-                categoryDTO.setCategoryName(category.getCategoryName());
-                categoryDTO.setCategoryUrl(category.getCategoryUrl());
-                categoryDTOList.add(categoryDTO);
-            }
-        }
-        return categoryDTOList;
+        return  frontDataService.categoryListByParentId(parentId);
     }
+
 }

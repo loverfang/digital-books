@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.PageUtils;
+import com.echuang.modules.cms.dto.CmsCategoryDTO;
 import com.echuang.modules.cms.dto.CmsDataDTO;
 import com.echuang.modules.cms.entity.CmsCategoryEntity;
 import com.echuang.modules.cms.entity.CmsDataEntity;
@@ -14,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +34,21 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
     private CmsDataMapper cmsDataMapper;
 
     @Override
-    public List<CmsCategoryEntity> categoryListByParentId(Long parentId) {
-        return cmsCategoryMapper.selectList(new QueryWrapper<CmsCategoryEntity>().eq("parent_id",parentId));
+    public List<CmsCategoryDTO> categoryListByParentId(Long parentId) {
+        List<CmsCategoryEntity> categoryEntityList = cmsCategoryMapper.selectList(new QueryWrapper<CmsCategoryEntity>().eq("parent_id",parentId));
+        List<CmsCategoryDTO> categoryDTOList = new ArrayList<>();
+        if(categoryEntityList!=null && categoryEntityList.size()>0){
+            for(CmsCategoryEntity entity: categoryEntityList){
+                CmsCategoryDTO tempDTO = new CmsCategoryDTO();
+                tempDTO.setCategoryId(entity.getCategoryId());
+                tempDTO.setParentId(entity.getParentId());
+                tempDTO.setCategoryName(entity.getCategoryName());
+                tempDTO.setCategoryUrl(entity.getCategoryUrl());
+                tempDTO.setCoverUrl( entity.getCoverUrl() );
+                categoryDTOList.add(tempDTO);
+            }
+        }
+        return categoryDTOList;
     }
 
     @Override

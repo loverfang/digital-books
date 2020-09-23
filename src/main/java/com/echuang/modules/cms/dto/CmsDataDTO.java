@@ -18,6 +18,10 @@ public class CmsDataDTO implements Serializable {
      */
     private Long categoryId;
     /**
+     * 资料父类别Id
+     */
+    private Long parentId;
+    /**
      * 资料名称
      */
     private String name;
@@ -88,6 +92,14 @@ public class CmsDataDTO implements Serializable {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
