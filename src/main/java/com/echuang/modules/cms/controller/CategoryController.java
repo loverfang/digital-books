@@ -58,6 +58,7 @@ public class CategoryController {
     public ResultResponse add(@RequestBody CmsCategoryEntity cmsCategory){
         cmsCategory.setCategoryId(SnowflakeIdWorker.getSnowflakeId());
         cmsCategory.setStatus( 1 );
+        cmsCategory.setIsDefault( 0 );
         cmsCategoryService.add(cmsCategory);
         return ResultResponse.ok();
     }

@@ -2,6 +2,7 @@ package com.echuang.modules.cms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.echuang.common.utils.PageUtils;
+import com.echuang.modules.cms.dto.CmsCategoryDTO;
 import com.echuang.modules.cms.entity.CmsCategoryEntity;
 import java.util.List;
 import java.util.Map;
@@ -71,5 +72,11 @@ public interface CmsCategoryService extends IService<CmsCategoryEntity> {
      */
     List<CmsCategoryEntity> treeList();
 
+    /**
+     * 前台网站导航
+     * @param parentId
+     * @return
+     */
+    List<CmsCategoryDTO> webChannels(Long parentId);
 
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.PageUtils;
 import com.echuang.common.utils.Query;
+import com.echuang.modules.cms.dto.CmsCategoryDTO;
 import com.echuang.modules.cms.entity.CmsCategoryEntity;
 import com.echuang.modules.cms.mapper.CmsCategoryMapper;
 import com.echuang.modules.cms.service.CmsCategoryService;
@@ -15,9 +16,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.*;
 
 @Service("cmsCategoryService")
 public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCategoryEntity> implements CmsCategoryService {
@@ -64,6 +64,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
 
     @Override
     public int add(CmsCategoryEntity cmsCategoryEntity) {
+
         return this.baseMapper.insert(cmsCategoryEntity);
     }
 
@@ -105,5 +106,90 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
 
             return cmsCategoryMapper.update(updateCategoryEntity, userUpdateWrapper);
         }
+    }
+
+    @Override
+    public List<CmsCategoryDTO> webChannels(Long parentId) {
+
+        List<Map<String, Object>> webMainChannels = cmsCategoryMapper.childList(parentId);
+        List<CmsCategoryDTO> navgaterList = new ArrayList<>();
+        if( webMainChannels!=null && webMainChannels.size()>0 ){
+            for(Map<String, Object> channel:webMainChannels){
+                CmsCategoryDTO tempDTO = new CmsCategoryDTO();
+                tempDTO.setCategoryId((Long)channel.get("categoryId"));
+                tempDTO.setParentId((Long)channel.get("parentId"));
+                tempDTO.setCategoryName((String)channel.get("categoryName"));
+
+                // 如果有子菜单
+                if(secondLevelChannels( tempDTO.getCategoryId() ).size()<=0){
+                    if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
+                        tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
+                    } else {
+                        tempDTO.setCategoryUrl("/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                    }
+                }else {
+                    tempDTO.setCategoryUrl("");
+                }
+
+                tempDTO.setChildList( secondLevelChannels( tempDTO.getCategoryId() ));
+
+                navgaterList.add(tempDTO);
+            }
+        }
+
+        return navgaterList;
+    }
+
+    //二级栏目查询
+    private  List<CmsCategoryDTO> secondLevelChannels(Long parentId){
+        List<Map<String, Object>> secondChannels = cmsCategoryMapper.childList(parentId);
+        List<CmsCategoryDTO> navgaterList = new ArrayList<>();
+        if( secondChannels!=null && secondChannels.size()>0 ){
+            for(Map<String, Object> channel:secondChannels){
+                CmsCategoryDTO tempDTO = new CmsCategoryDTO();
+                tempDTO.setCategoryId((Long)channel.get("categoryId"));
+                tempDTO.setParentId((Long)channel.get("parentId"));
+                tempDTO.setCategoryName((String)channel.get("categoryName"));
+
+                // 如果有子菜单
+                if(secondLevelChannels( tempDTO.getCategoryId() ).size()<=0){
+                    if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
+                        tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
+                    } else {
+                        tempDTO.setCategoryUrl("/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                    }
+                }else {
+                    tempDTO.setCategoryUrl("");
+                }
+
+                tempDTO.setChildList( thirdLevelChannels( tempDTO.getCategoryId() ));
+                navgaterList.add(tempDTO);
+            }
+        }
+
+        return navgaterList;
+    }
+
+    //三级栏目查询
+    private  List<CmsCategoryDTO> thirdLevelChannels(Long parentId) {
+        List<Map<String, Object>> webThirdChannels = cmsCategoryMapper.childList(parentId);
+        List<CmsCategoryDTO> navgaterList = new ArrayList<>();
+        if( webThirdChannels!=null && webThirdChannels.size()>0 ){
+            for(Map<String, Object> channel:webThirdChannels){
+                CmsCategoryDTO tempDTO = new CmsCategoryDTO();
+                tempDTO.setCategoryId((Long)channel.get("categoryId"));
+                tempDTO.setParentId((Long)channel.get("parentId"));
+                tempDTO.setCategoryName((String)channel.get("categoryName"));
+
+                if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
+                    tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
+                } else {
+                    tempDTO.setCategoryUrl("/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                }
+
+                navgaterList.add(tempDTO);
+            }
+        }
+        return navgaterList;
     }
 }

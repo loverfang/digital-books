@@ -1,6 +1,7 @@
 package com.echuang.modules.cms.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author Luo.z.x
@@ -9,8 +10,10 @@ import java.io.Serializable;
  */
 public class CmsCategoryDTO implements Serializable {
     private Long categoryId;
+    private Long parentId;
     private String categoryName;
     private String categoryUrl;
+    private List<CmsCategoryDTO> childList;
 
     public CmsCategoryDTO() { }
 
@@ -21,6 +24,10 @@ public class CmsCategoryDTO implements Serializable {
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
+
+    public Long getParentId() { return parentId; }
+
+    public void setParentId(Long parentId) { this.parentId = parentId; }
 
     public String getCategoryName() {
         return categoryName;
@@ -36,5 +43,13 @@ public class CmsCategoryDTO implements Serializable {
 
     public void setCategoryUrl(String categoryUrl) {
         this.categoryUrl = categoryUrl;
+    }
+
+    public List<CmsCategoryDTO> getChildList() {
+        return childList;
+    }
+
+    public void setChildList(List<CmsCategoryDTO> childList) {
+        this.childList = childList;
     }
 }

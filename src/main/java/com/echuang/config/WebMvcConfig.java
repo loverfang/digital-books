@@ -2,6 +2,7 @@ package com.echuang.config;
 
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.echuang.common.interceptor.BasePathInterceptor;
+import com.echuang.common.interceptor.NavigaterInterceptor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.TimeZone;
 
 /**
@@ -77,10 +79,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(basePathInterceptor()).addPathPatterns(new String[] { "/**" });
+        registry.addInterceptor(navigaterInterceptor())
+                .addPathPatterns("/","/index","*.html")
+                .excludePathPatterns("/sys/**","/wx/**","/cms/**");
     }
 
     @Bean
     public BasePathInterceptor basePathInterceptor() {
         return new BasePathInterceptor();
+    }
+    @Bean
+    public NavigaterInterceptor navigaterInterceptor() {
+        return new NavigaterInterceptor();
     }
 }
