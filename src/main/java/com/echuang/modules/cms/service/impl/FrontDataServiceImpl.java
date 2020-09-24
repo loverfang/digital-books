@@ -1,6 +1,7 @@
 package com.echuang.modules.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.echuang.common.utils.PageUtils;
@@ -52,6 +53,14 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
     }
 
     @Override
+    public CmsCategoryDTO queryCategoryById(Long categoryId) {
+        CmsCategoryDTO targetDTO = new CmsCategoryDTO();
+        CmsCategoryEntity sourceEntity = cmsCategoryMapper.selectById(categoryId);
+        BeanUtils.copyProperties(sourceEntity,targetDTO);
+        return targetDTO;
+    }
+
+    @Override
     public PageUtils dataListByCategoryId(Long categoryId, Integer pageNo, Integer pageSize) {
         // 新建分页
         Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo, pageSize);
@@ -61,6 +70,16 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
         queryMap.put("categoryId", categoryId);
         List<Map<String,Object>> resultList = cmsCategoryMapper.queryPageList(page, queryMap);
         return  new PageUtils(page.setRecords(resultList));
+    }
+
+    @Override
+    public PageUtils searchDataList(String keyword, Integer page, Integer limit) {
+        // 新建分页
+        Page<Map<String,Object>> pagetag = new Page<Map<String,Object>>(page, limit);
+        Map<String,Object> queryMap = new HashMap<>();
+        queryMap.put("name", keyword);
+        IPage<Map<String,Object>> resultPage = cmsDataMapper.queryPageList(pagetag, queryMap);
+        return new PageUtils(resultPage);
     }
 
     @Override

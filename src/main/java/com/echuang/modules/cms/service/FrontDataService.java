@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface FrontDataService {
     List<CmsCategoryDTO> categoryListByParentId(Long parentId);
+    CmsCategoryDTO queryCategoryById(Long categoryId);
     PageUtils dataListByCategoryId(Long categoryId, Integer pageNo, Integer pageSize);
     CmsDataDTO dataDetail(Long id);
+    PageUtils searchDataList(String keyword, Integer page, Integer limit);
 }

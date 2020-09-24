@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,20 @@ public class IndexController {
     }
 
     /**
+     * 通用查询方法
+     * @param keyword
+     * @return
+     */
+    @GetMapping("/search")
+    public String search(@RequestParam(required = true) String keyword, @RequestParam(required = false)Integer pageNo, @RequestParam(required = false)Integer pageSize){
+        // 内容分页列表
+        Integer page = pageNo==null?1:pageNo;
+        Integer limit = pageSize==null?10:pageSize;
+        frontDataService.searchDataList(keyword, page, limit);
+        return "website/search_result";
+    }
+
+    /**
      * 查询类型下的文件信息，如果有子类比就查询子类别下的数据信息,没有子类别就查他自己下的数据信息
      * @param categoryDTO
      */
@@ -107,6 +122,11 @@ public class IndexController {
         }
     }
 
+    /**
+     * Map转成想要的数据类型
+     * @param oldMapList
+     * @return
+     */
     private List<CmsDataDTO> maplistToDTOList(List<Map<String,Object>> oldMapList){
         List<CmsDataDTO> resultDataList = new ArrayList<>();
         if(oldMapList == null || oldMapList.size()<=0){
@@ -129,16 +149,6 @@ public class IndexController {
      */
     private List<CmsCategoryDTO> childCategoryList(Long categoryId){
         return  frontDataService.categoryListByParentId(categoryId);
-    }
-
-    /**
-     * 通用查询方法
-     * @param keyword
-     * @return
-     */
-    @GetMapping("/search")
-    public String search(String keyword){
-        return "website/search_result";
     }
 
     /**

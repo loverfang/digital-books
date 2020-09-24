@@ -32,25 +32,53 @@ public class FrontDataController {
         Integer limit = pageSize==null?10:pageSize;
 
         // 左侧同级列表
-        List<CmsCategoryDTO>  categoryDTOList = categoryListByParentId(parentId);
-        Map<String, Object> result = new HashMap<>();
-        result.put("categoryList", categoryDTOList);
+        List<CmsCategoryDTO> categoryDTOList = null;
+        if(parentId == 0) {
+            // 一级类别不需要查同级列表
+            CmsCategoryDTO selfNav = frontDataService.queryCategoryById(categoryId);
+            categoryDTOList.add(selfNav);
+        }else{
+            categoryDTOList = categoryListByParentId(parentId);
+        }
 
+        Map<String, Object> result = new HashMap<>();
+        // 左侧导航列表
+        result.put("categoryList", categoryDTOList);
         PageUtils resultPage = frontDataService.dataListByCategoryId(categoryId, page, limit);
+        // 分页数据
         result.put("page", resultPage);
+        // 导航标记
+        result.put("currCategoryId", categoryId);
+
         if(5 == parentId){
+            // 期刊页面
             return "website/qikan_list";
         }
+        // 其它类别的页面
         return "website/product_list";
     }
 
-    @GetMapping("/detail")
-    public String detail(Long id){
-        Map<String, Object> result = new HashMap<>();
-
+    @GetMapping("/detail/{id}.html")
+    public String detail(@PathVariable("id") Long id){
         CmsDataDTO cmsDataDTO = frontDataService.dataDetail( id );
-        result.put("dataInfo", cmsDataDTO);
 
+        CmsCategoryDTO selfNav = frontDataService.queryCategoryById( cmsDataDTO.getCategoryId() );
+        // 左侧同级列表
+        List<CmsCategoryDTO> categoryDTOList = null;
+        if(selfNav.getParentId() == 0) {
+            // 一级类别不需要查同级列表
+            categoryDTOList.add(selfNav);
+        }else{
+            categoryDTOList = categoryListByParentId(selfNav.getParentId());
+        }
+
+        Map<String, Object> result = new HashMap<>();
+        // 左侧导航列表
+        result.put("categoryList", categoryDTOList);
+        // 导航标记
+        result.put("currCategoryId", selfNav.getCategoryId());
+        // 详情信息
+        result.put("dataInfo", cmsDataDTO);
         return "website/product_detail";
     }
 
@@ -62,5 +90,4 @@ public class FrontDataController {
     private List<CmsCategoryDTO> categoryListByParentId(Long parentId){
         return  frontDataService.categoryListByParentId(parentId);
     }
-
 }
