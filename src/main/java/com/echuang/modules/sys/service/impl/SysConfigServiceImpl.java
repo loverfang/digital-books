@@ -61,7 +61,6 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     @Override
     public String getValue(String key) {
         SysConfigEntity config = baseMapper.queryByKey(key);
-
         return config == null ? null : config.getParamValue();
     }
 

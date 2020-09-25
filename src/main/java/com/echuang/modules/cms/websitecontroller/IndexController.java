@@ -5,6 +5,7 @@ import com.echuang.modules.cms.dto.CmsCategoryDTO;
 import com.echuang.modules.cms.dto.CmsDataDTO;
 import com.echuang.modules.cms.dto.CmsLinkDTO;
 import com.echuang.modules.cms.dto.CmsNoticeDTO;
+import com.echuang.modules.cms.entity.CmsDataEntity;
 import com.echuang.modules.cms.entity.CmsNoticeEntity;
 import com.echuang.modules.cms.service.FrontDataService;
 import com.echuang.modules.cms.service.FrontLinksService;
@@ -58,17 +59,17 @@ public class IndexController {
 
         // 情报中心产品
         CmsCategoryDTO centerCategory = new CmsCategoryDTO(3L,0L,"情报中心产品");
-        fileDataList(centerCategory);
+        fileDataList(centerCategory,1,8);
         dataMap.put("centerCategory", centerCategory);
 
         // 集团中心产品
         CmsCategoryDTO companyCategory = new CmsCategoryDTO(4L,0L,"集团情报产品");
-        fileDataList(companyCategory);
+        fileDataList(companyCategory,1,16);
         dataMap.put("companyCategory", companyCategory);
 
         // 外购列表
         CmsCategoryDTO outerBuyCategory = new CmsCategoryDTO(6L,0L,"外购报告");
-        fileDataList(outerBuyCategory);
+        fileDataList(outerBuyCategory,1,6);
         dataMap.put("outerBuyCategory", outerBuyCategory);
 
         // 刊物
@@ -80,6 +81,8 @@ public class IndexController {
         // 友情链接
         dataMap.put("linkList", linkIndexList());
 
+        dataMap.put("navId",0);
+
         request.setAttribute("root", dataMap);
         return "website/index";
     }
@@ -90,11 +93,23 @@ public class IndexController {
      * @return
      */
     @GetMapping("/search")
-    public String search(@RequestParam(required = true) String keyword, @RequestParam(required = false)Integer pageNo, @RequestParam(required = false)Integer pageSize){
+    public String search(HttpServletRequest request,
+             @RequestParam(required = true) String keyword,
+             @RequestParam(required = false)Integer pageNo,
+             @RequestParam(required = false)Integer pageSize){
+
         // 内容分页列表
         Integer page = pageNo==null?1:pageNo;
         Integer limit = pageSize==null?10:pageSize;
-        frontDataService.searchDataList(keyword, page, limit);
+
+        PageUtils resultPage = frontDataService.searchDataList(keyword, page, limit);
+        Map<String, Object> result = new HashMap<>();
+
+        // 分页数据
+        result.put("navId", -1);
+        result.put("page", resultPage);
+        result.put("keyword", keyword);
+        request.setAttribute("root", result);
         return "website/search_result";
     }
 
@@ -102,22 +117,22 @@ public class IndexController {
      * 查询类型下的文件信息，如果有子类比就查询子类别下的数据信息,没有子类别就查他自己下的数据信息
      * @param categoryDTO
      */
-    private void fileDataList(CmsCategoryDTO categoryDTO){
+    private void fileDataList(CmsCategoryDTO categoryDTO,Integer pageNo, Integer pageSize){
         List<CmsCategoryDTO> centerList = childCategoryList(categoryDTO.getCategoryId());
         if(centerList!=null && centerList.size()>0){
             categoryDTO.setChildList(centerList);
             // 只有子类别
             centerList.forEach(item -> {
                 // 根据类型ID查询资料列表
-                PageUtils resultPage = frontDataService.dataListByCategoryId(item.getCategoryId(),1, 10);
-                List<Map<String,Object>> resultList = (List<Map<String,Object>>)resultPage.getList();
+                PageUtils resultPage = frontDataService.dataListByCategoryId(item.getCategoryId(), pageNo, pageSize);
+                List<CmsDataEntity> resultList = (List<CmsDataEntity>)resultPage.getList();
                 item.setDataList( maplistToDTOList(resultList) );
             });
         }else{
             // 没有子类型就填充他自身的类别信息
             categoryDTO.setChildList(new ArrayList<>());
-            PageUtils resultPage = frontDataService.dataListByCategoryId(categoryDTO.getCategoryId(),1, 10);
-            List<Map<String,Object>> resultList = (List<Map<String,Object>>)resultPage.getList();
+            PageUtils resultPage = frontDataService.dataListByCategoryId(categoryDTO.getCategoryId(), pageNo, pageSize);
+            List<CmsDataEntity> resultList = (List<CmsDataEntity>)resultPage.getList();
             categoryDTO.setDataList( maplistToDTOList(resultList));
         }
     }
@@ -127,18 +142,20 @@ public class IndexController {
      * @param oldMapList
      * @return
      */
-    private List<CmsDataDTO> maplistToDTOList(List<Map<String,Object>> oldMapList){
+    private List<CmsDataDTO> maplistToDTOList(List<CmsDataEntity> oldMapList){
         List<CmsDataDTO> resultDataList = new ArrayList<>();
         if(oldMapList == null || oldMapList.size()<=0){
             return resultDataList;
         }
-        oldMapList.forEach(item ->{
+        for(int i=0;i<oldMapList.size();i++) {
             CmsDataDTO tempDTO = new CmsDataDTO();
-            tempDTO.setDataId( Long.valueOf((String)item.get("dataId")));
-            tempDTO.setCategoryId( Long.valueOf((String)item.get("categoryId")));
-            tempDTO.setName((String)item.get("name"));
+            CmsDataEntity temp = oldMapList.get(i);
+            tempDTO.setDataId( temp.getDataId() );
+            tempDTO.setCategoryId( temp.getCategoryId() );
+            tempDTO.setName(temp.getName());
+            tempDTO.setCreateTime(temp.getCreateTime());
             resultDataList.add(tempDTO);
-        });
+        }
         return resultDataList;
     }
 

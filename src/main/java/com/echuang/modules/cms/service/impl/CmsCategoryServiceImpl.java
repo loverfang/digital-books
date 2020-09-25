@@ -115,6 +115,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
         List<CmsCategoryDTO> navgaterList = new ArrayList<>();
         if( webMainChannels!=null && webMainChannels.size()>0 ){
             for(Map<String, Object> channel:webMainChannels){
+                System.out.println( "---------------->" + channel.get("categoryName"));
                 CmsCategoryDTO tempDTO = new CmsCategoryDTO();
                 tempDTO.setCategoryId((Long)channel.get("categoryId"));
                 tempDTO.setParentId((Long)channel.get("parentId"));
@@ -125,14 +126,13 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                     if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
                         tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
                     } else {
-                        tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                        tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + ".html");
                     }
                 }else {
                     tempDTO.setCategoryUrl("");
                 }
 
                 tempDTO.setChildList( secondLevelChannels( tempDTO.getCategoryId() ));
-
                 navgaterList.add(tempDTO);
             }
         }
@@ -156,7 +156,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                     if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
                         tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
                     } else {
-                        tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                        tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + ".html");
                     }
                 }else {
                     tempDTO.setCategoryUrl("");
@@ -184,7 +184,7 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                 if(channel.get("categoryUrl")!=null && !"".equals((String)channel.get("categoryUrl"))){
                     tempDTO.setCategoryUrl((String)channel.get("categoryUrl"));
                 } else {
-                    tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + "/");
+                    tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + ".html");
                 }
 
                 navgaterList.add(tempDTO);

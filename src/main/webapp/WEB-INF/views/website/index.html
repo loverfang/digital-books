@@ -16,116 +16,98 @@
     <!-- 内容区域 -->
     <div class="win1200">
         <div class="left-warp ">
-            <div class="tit-2">情报中心产品</div>
             <#if root.centerCategory??>
+                <#if root.centerCategory.childList?? && (root.centerCategory.childList?size >0) >
+                    <div class="tit-2">情报中心产品</div>
+                    <!-- 有子列表输出子列表中的内容 -->
+                    <#list root.centerCategory.childList as item>
+                    <div class="small-tit-warp">
+                        <div class="small-tit"><#if item.categoryName??>${item.categoryName!''}<#else></#if></div>
+                        <div class="more"><a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html">更多 <img src="${base}/website/images/arr.png"></a></div>
+                    </div>
+                    <div class="news-index" style="height: 240px;">
+                        <ul>
+                            <#if item.dataList?? && (item.dataList?size gt 0)> <#list item.dataList as data>
+                            <li>
+                                <div class="left-tit"><a href="${base}/product/detail/${data.dataId?c}.html"><#if data.name??>${data.name!''}</#if></a></div>
+                                <div class="time"><#if data.createTime??>${data.createTime?string('MM-dd')}<#else>00-00</#if></div>
+                            </li>
+                            </#list></#if>
+                        </ul>
+                    </div>
+                    <#if item_has_next><div class="news-index-line"></div></#if>
+                    </#list>
+                <#else>
+                    <!-- 没有子列表则输出自身所属的内容 -->
+                    <div class="group">
+                        <div class="tit-2"><#if root.centerCategory.categoryName??>${root.centerCategory.categoryName!''}</#if></div>
+                        <div class="more"><a href="${base}/product/list/${root.centerCategory.parentId?c}/${root.centerCategory.categoryId?c}.html">更多 <img src="${base}/website/images/arr.png"></a></div>
+                    </div>
+
+                    <#if root.centerCategory.dataList?? && (root.centerCategory.dataList?size >0) >
+                    <div class="news-index" style="height: 240px;">
+                        <ul>
+                            <#if root.centerCategory.dataList?? && (root.centerCategory.dataList?size gt 0)> <#list root.centerCategory.dataList as data>
+                            <li>
+                                <div class="left-tit"><a href="${base}/product/detail/${data.dataId?c}.html"><#if data.name??>${data.name!''}</#if></a></div>
+                                <div class="time"><#if data.createTime??>${data.createTime?string('MM-dd')}<#else>00-00</#if></div>
+                            </li>
+                            </#list></#if>
+                        </ul>
+                    </div>
+                    </#if>
+                </#if>
             <#else>
+                资料整理中...
             </#if>
-            <div class="small-tit-warp">
-                <div class="small-tit">专题报告</div>
-                <div class="more"><a href="${base}/product/list?parentId=1&categoryId=2">更多 <img src="${base}/website/images/arr.png"></a></div>
-            </div>
-            <div class="news-index" style="height: 240px;">
-                <ul>
-                    <li>
-                            <div class="left-tit"> <a href="">NASA空间光通信发展计划及应用价值分析</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"><a href="">大赫兹量子级联激光器研究进展</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"><a href="">微声SAW&BAW器件技术最新研究成果与微声SAW&BAW器件技术最新研究成果与</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"><a href="">新一代智能传感器最新研究进展与应用</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"><a href="">NASA空间光通信发展计划及应用价值分析</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">NASA空间光通信发展计划及应用价值分析</a></div>
-                        <div class="time">08-29</div>
-                    <li>
-                        <div class="left-tit"><a href="">NASA空间光通信发展计划及应用价值分析</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">NASA空间光通信发展计划及应用价值分析</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="news-index-line"></div>
-
-            <div class="small-tit-warp">
-                <div class="small-tit">电子快报</div>
-                <div class="more"><a href="">更多 <img src="${base}/website/images/arr.png"></a></div>
-            </div>
-            <div class="news-index" >
-                <ul>
-                    <li>
-                            <div class="left-tit"> <a href="">2020电子快报第三期</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"><a href="">2020电子快报第二期</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"> <a href="">2020电子快报第一期 </a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"> <a href="">2020电子快报第三期</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">2020电子快报第一期</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">2020电子快报第一期</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">2020电子快报第一期</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                    <li>
-                            <div class="left-tit"><a href="">2020电子快报第一期</a></div>
-                            <div class="time">08-29</div>
-                    </li>
-                </ul>
-            </div>
-
         </div>
 
         <div class="left-warp ">
-            <div class="group">
-                <div class="tit-2">集团情报产品</div>
-                <div class="more"><a href="">更多 <img src="${base}/website/images/arr.png"></a></div>
-            </div>
-            <div class="news-index" >
-                <ul>
-                    <li>
-                        <div class="left-tit"><a href="">天地一题化信息网络》2020</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">《光电情报专刊》2020期</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                    <li>
-                        <div class="left-tit"><a href="">天地一题化信息网络》2020</a></div>
-                        <div class="time">08-29</div>
-                    </li>
-                </ul>
-            </div>
+            <#if root.companyCategory??>
+                <#if root.companyCategory.childList?? && (root.companyCategory.childList?size >0) >
+                <div class="group">
+                    <div class="tit-2">集团情报产品</div>
+                </div>
+                <!-- 有子列表输出子列表中的内容 -->
+                <#list root.companyCategory.childList as item>
+                <div class="small-tit-warp">
+                    <div class="small-tit"><#if item.categoryName??>${item.categoryName!''}<#else></#if></div>
+                    <div class="more"><a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html">更多 <img src="${base}/website/images/arr.png"></a></div>
+                </div>
+                <#if item.dataList?? && (item.dataList?size >0) >
+                <div class="news-index" >
+                    <ul>
+                        <#if item.dataList?? && (item.dataList?size gt 0)> <#list item.dataList as data>
+                        <li>
+                            <div class="left-tit"><a href="${base}/product/detail/${data.dataId?c}.html"><#if data.name??>${data.name!''}</#if></a></div>
+                            <div class="time"><#if data.createTime??>${data.createTime?string('MM-dd')}<#else>00-00</#if></div>
+                        </li></#list></#if>
+                    </ul>
+                </div>
+                </#if>
+                </#list>
+                <#else>
+                    <!-- 没有子列表则输出自身所属的内容 -->
+                    <div class="group">
+                        <div class="tit-2"><#if root.companyCategory??>${root.companyCategory.categoryName!''}<#else></#if></div>
+                        <div class="more"><a href="${base}/product/list/${root.companyCategory.parentId?c}/${root.companyCategory.categoryId?c}.html">更多 <img src="${base}/website/images/arr.png"></a></div>
+                    </div>
+                    <#if root.companyCategory.dataList?? && (root.companyCategory.dataList?size >0) >
+                        <div class="news-index" style="height: 240px;">
+                            <ul>
+                                <#if root.companyCategory.dataList?? && (root.companyCategory.dataList?size gt 0)> <#list root.companyCategory.dataList as data>
+                                <li>
+                                    <div class="left-tit"><a href="${base}/product/detail/${data.dataId?c}.html"><#if data.name??>${data.name!''}</#if></a></div>
+                                    <div class="time"><#if data.createTime??>${data.createTime?string('MM-dd')}<#else>00-00</#if></div>
+                                </li>
+                                </#list></#if>
+                            </ul>
+                        </div>
+                    </#if>
+                </#if>
+            <#else>
+                资料整理中...
+            </#if>
         </div>
 
         <div class="right-warp">
@@ -138,7 +120,7 @@
                     <ul>
                         <#if root.noticeList?? && (root.noticeList?size gt 0)><#list root.noticeList as notice>
                         <li>
-                            <div class="left-tit xh1">  <a href="/notice/detail/${notice.noticeId!''}.html">${notice.title!''}</a></div>
+                            <div class="left-tit xh1">  <a href="/notice/detail/${notice.noticeId?c}.html">${notice.title!''}</a></div>
                         </li>
                         </#list><#else>资料整理中...</#if>
                     </ul>
@@ -187,7 +169,7 @@
                                     <div class="left-tit"><a href="">Transient Electronics Market(2020-2028)</a></div>
                                 </li>
                             <#else>
-                                资料整理中
+                                资料整理中...
                             </#if>
                         </#if></#if>
                     </ul>
@@ -211,9 +193,9 @@
             <ul>
                 <#if root.publicationList?? && (root.publicationList?size gt 0)>  <#list root.publicationList as item>
                 <li>
-                    <a href="${base}/product/list/${item.parentId!''}/${item.categoryId!''}/">
+                    <a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html">
                         <div class="listpic"><img src="${base}${item.coverUrl!''}" class="img-warp"></div>
-                        <div class="tit">${item.categoryName!''}</div>
+                        <div class="tit"><#if item.categoryName??>${item.categoryName!''}<#else></#if></div>
                     </a>
                 </li>
                 </#list> <#else>资料整理中...</#if>
@@ -227,7 +209,7 @@
             <div class="title">相关链接</div>
             <#if root.linkList?? && (root.linkList?size gt 0)>
             <#list root.linkList as link>
-                <a href="${link.url!''}" target="_blank">${link.name!''}</a>
+                <a href="${link.url!''}" target="_blank"><#if link.name??>${link.name!''}<#else></#if></a>
             </#list> <#else>资料整理中...</#if>
         </div>
     </div>

@@ -80,7 +80,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(basePathInterceptor()).addPathPatterns(new String[] { "/**" });
         registry.addInterceptor(navigaterInterceptor())
-                .addPathPatterns(new String[] {"/","/index","/product/**","*.html"})
+                .addPathPatterns(new String[] {"/","/index","/product/**","/notice/**", "/search", "*.html"})
                 .excludePathPatterns("/sys/**","/wx/**","/cms/**");
     }
 

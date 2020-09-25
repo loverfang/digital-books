@@ -13,7 +13,6 @@ import java.util.Map;
  * @Version 1.0
  */
 public interface CmsLinkService extends IService<CmsLinkEntity> {
-
     /**
      * 分页查询链接列表
      * @param queryMap

@@ -100,6 +100,7 @@
                  and d.platform like concat('%',#{params.platform},'%')
              </if>
         </where>
+        order by d.create_time desc
     </select>
 
     <select id="getCmsDataById" resultMap="dataDetailMap">

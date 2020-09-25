@@ -71,10 +71,15 @@ public class NavigaterInterceptor extends HandlerInterceptorAdapter {
 			model.addObject("channelList", navigaterList);
 
 			// 构建面包屑导航
-			Integer currentNavId = (Integer) model.getModel().get("currentNavId");
-			if(currentNavId!=null){
-				List<CmsCategoryDTO> navigateList = channelNav(currentNavId);
-				model.addObject("navigateList",navigateList);
+			// Integer currentNavId = (Integer) model.getModel().get("currentNavId");
+			Map<String,Object> dataMap = (Map<String,Object>) request.getAttribute("root");
+			if(dataMap!=null){
+				Object valueObj = dataMap.get("currCategoryId");
+				if(valueObj!=null){
+					Long currentNavId = (Long)valueObj;
+					List<CmsCategoryDTO> navigateList = channelNav(currentNavId);
+					model.addObject("navigateList",navigateList);
+				}
 			}
 		}
 		
@@ -87,7 +92,7 @@ public class NavigaterInterceptor extends HandlerInterceptorAdapter {
 	 * @return
 	 * @throws SQLException
 	 */
-	private List<CmsCategoryDTO> channelNav(Integer categoryId){
+	private List<CmsCategoryDTO> channelNav(Long categoryId){
 
 		//获得当前频道
 		CmsCategoryEntity categoryEntity = cmsCategoryService.getById( categoryId );
@@ -98,6 +103,7 @@ public class NavigaterInterceptor extends HandlerInterceptorAdapter {
 			CmsCategoryDTO tempDTO = new CmsCategoryDTO();
 			BeanUtils.copyProperties(categoryEntity, tempDTO);
 
+			navList.add(tempDTO);
 			channelNav(navList, tempDTO);
 		}
 		

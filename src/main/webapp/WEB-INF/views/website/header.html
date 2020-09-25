@@ -1,12 +1,15 @@
 <#import "./ftl/website.ftl" as w>
+<#import "./ftl/page.ftl" as page>
 <!-- 顶部 -->
 <div class="top-bj">
     <div class="win1200">
         <div class="logo-warp"><img src="${base}/res/website/images/logo.jpg"></div>
         <div class="seach-warp">
+            <form method="get" action="/search">
             <div class="seachall clearfix">
-                <input id="searchText" name="q" type="text" value="请输入关键词"><button name="button" type="submit" value=" 搜索"></button>
+                <input id="searchText" name="keyword" type="text" value="请输入关键词" placeholder=""><button name="button" type="submit" value="搜索"></button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -14,6 +17,6 @@
 <!-- 导航 -->
 <div class="navbj">
     <div class="menu">
-    <@w.navigater channelList 0 />
+    <@w.navigater channelList root.navId />
     </div>
 </div>

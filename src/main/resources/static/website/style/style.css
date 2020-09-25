@@ -1071,7 +1071,7 @@
         
         .left-content .subnav a:hover,
         .left-content .subnav .active {
-            /** background: url(../images/left-arr.jpg) left no-repeat #5f5d5d; **/
+            background: left no-repeat #5f5d5d;
             color: #ffffff !important;
             transition: all 0.3s;
             border-left: 6px solid #c62c1d;
@@ -1144,3 +1144,8 @@
         .all-time dd {
             line-height: 36px;
         }
+        .btn-bottom{ width: 320PX; margin:30PX auto;}
+        .btn-bottom a{ display: block; float: left;color:#fff;margin: 0 10px;}
+         
+        .btn-1{ width: 130px;height: 50px; line-height: 50px;  font-size: 16px; font-weight: bold; background: #535353; text-align: center; background: url(../images/btn1.png) no-repeat;}   
+        .btn-bottom  a:hover{background: url(../images/btn2.png) no-repeat; color:#fff !important} 

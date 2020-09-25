@@ -36,7 +36,8 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
 
     @Override
     public List<CmsCategoryDTO> categoryListByParentId(Long parentId) {
-        List<CmsCategoryEntity> categoryEntityList = cmsCategoryMapper.selectList(new QueryWrapper<CmsCategoryEntity>().eq("parent_id",parentId));
+        List<CmsCategoryEntity> categoryEntityList = cmsCategoryMapper.selectList(new QueryWrapper<CmsCategoryEntity>()
+                .eq("parent_id",parentId).eq("status",1));
         List<CmsCategoryDTO> categoryDTOList = new ArrayList<>();
         if(categoryEntityList!=null && categoryEntityList.size()>0){
             for(CmsCategoryEntity entity: categoryEntityList){
@@ -65,11 +66,11 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
         // 新建分页
         Page<Map<String,Object>> page = new Page<Map<String,Object>>(pageNo, pageSize);
 
-        // 返回结果
         Map<String,Object> queryMap = new HashMap<>();
         queryMap.put("categoryId", categoryId);
-        List<Map<String,Object>> resultList = cmsCategoryMapper.queryPageList(page, queryMap);
-        return  new PageUtils(page.setRecords(resultList));
+        IPage<CmsDataEntity> pageResult = cmsDataMapper.queryPageList(page, queryMap);
+        // 返回结果
+        return new PageUtils(pageResult);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
         Page<Map<String,Object>> pagetag = new Page<Map<String,Object>>(page, limit);
         Map<String,Object> queryMap = new HashMap<>();
         queryMap.put("name", keyword);
-        IPage<Map<String,Object>> resultPage = cmsDataMapper.queryPageList(pagetag, queryMap);
+        IPage<CmsDataEntity> resultPage = cmsDataMapper.queryPageList(pagetag, queryMap);
         return new PageUtils(resultPage);
     }
 

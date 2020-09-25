@@ -18,137 +18,37 @@
         <div class="win1200 main-content ">
             <div class="p20 ">
                 <div class="w250 fl margin-b-50 ">
-                    <div class="left-content margin-b-20 ">
-
+                    <div class="left-content margin-b-20">
                         <div class="subnav ">
-
                             <!-- 左侧栏目导航 -->
-                            <a href=" " class="active ">半导体光电</a>
-                            <a href=" ">微电子学</a>
-                            <a href=" ">磁性材料及器件</a>
-                            <a href=" ">压电与声光</a>
+                            <#if root.categoryList?? && (root.categoryList?size gt 0)><#list root.categoryList as item>
+                            <a href="/product/list/${item.parentId?c}/${item.categoryId?c}.html" <#if root.currCategoryId??><#if root.currCategoryId=item.categoryId>class="active"</#if></#if> ><#if item.categoryName??>${item.categoryName!''}</#if></a>
+                            </#list></#if>
                         </div>
                     </div>
 
                 </div>
                 <div class="w890 fr ">
-
                     <div class="periodical ">
-                        <ul>
+                        <ul><#if root.page??><#if root.page.list?? && (root.page.list?size gt 0)><#list root.page.list as item>
                             <li>
-                                
-                                    <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-                                    <div class="time ">08-29</div>
-                                 
-                            </li>
-                            <li>
-                                
-                                <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-                                <div class="time ">08-29</div>
-                             
-                        </li>
-                        <li>
-                                
-                            <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-                            <div class="time ">08-29</div>
-                         
-                    </li>
-                    <li>
-                                
-                        <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-                        <div class="time ">08-29</div>
-                     
-                </li>
-                <li>
-                                
-                    <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-                    <div class="time ">08-29</div>
-                 
-            </li>
-            <li>
-                                
-                <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-                <div class="time ">08-29</div>
-             
-        </li>
-        <li>
-                                
-            <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-            <div class="time ">08-29</div>
-         
-    </li>
-    <li>
-                                
-        <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-        <div class="time ">08-29</div>
-     
-</li>  <li>
-                                
-    <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-    <div class="time ">08-29</div>
- 
-</li>
-<li>
-                                
-    <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-    <div class="time ">08-29</div>
- 
-</li>  <li>
-                                
-    <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-    <div class="time ">08-29</div>
- 
-</li>  <li>
-                                
-    <div class="left-tit "><a href=" ">2020电子快报第三期</a></div>
-    <div class="time ">08-29</div>
- 
-</li>
+                                <div class="left-tit"><a href="${base}/product/detail/${item.dataId?c}.html"><#if item.name??>${item.name!''}</#if></a></div>
+                                <div class="time"><#if item.createTime??>${item.createTime?string('MM-dd')}</#if></div>
+                            </li></#list><#else>资料整理中...</#if></#if>
                         </ul>
                     </div>
-
-
-                    <div class="page ">
-
-
-                        <a class="first "> < 上一页</a>
-
-                        <a class="on ">1</a>
-
-
-                        <a href=" ">2</a>
-
-
-                        <a href=" ">3</a>
-
-
-                        <a href=" ">4</a>
-
-
-                        <a>...</a>
-                        <a href=" ">11</a>
-
-
-                        <a class="last " href=" ">下一页 > </a>
-
-
-
+                    <div class="page">
+                        <#if root.page??><#if root.page.list?? && (root.page.list?size gt 0)>
+                        <@page.pager root.page "/product/list/${root.parentId?c}/${root.currCategoryId?c}.html" {} 3/>
+                    </#if></#if>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </div>
 
     <!-- 版权-->
     <#include "footer.html" />
-
-
 </body>
 
 </html>
