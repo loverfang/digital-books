@@ -10,13 +10,20 @@ import com.echuang.modules.oss.mapper.OssEntityMapper;
 import com.echuang.modules.oss.service.OssService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -119,5 +126,20 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
         }
 
         return filesResult;
+    }
+
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path fileStorageLocation = Paths.get(uploadLocation) .toAbsolutePath().normalize();
+            Path filePath = fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if(resource.exists()) {
+                return resource;
+            } else {
+                throw new RRException("File not found " + fileName);
+            }
+        } catch (RRException | MalformedURLException ex) {
+            throw new RRException("File not found " + fileName, ex);
+        }
     }
 }

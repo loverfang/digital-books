@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.echuang.common.exception.RRException;
 import com.echuang.common.utils.PageUtils;
 import com.echuang.modules.oss.entity.OssEntity;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -19,4 +18,5 @@ import java.util.Map;
 public interface OssService extends IService<OssEntity> {
     PageUtils queryPage(Map<String, Object> params);
     List<Map<String,Object>> uploadFile(MultipartFile[] files,String childPath) throws RRException;
+    Resource loadFileAsResource(String fileName);
 }
