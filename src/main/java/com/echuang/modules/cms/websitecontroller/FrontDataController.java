@@ -1,12 +1,22 @@
 package com.echuang.modules.cms.websitecontroller;
 
+import com.echuang.common.exception.RRException;
 import com.echuang.common.utils.PageUtils;
 import com.echuang.modules.cms.dto.CmsCategoryDTO;
 import com.echuang.modules.cms.dto.CmsDataDTO;
 import com.echuang.modules.cms.entity.CmsCategoryEntity;
+import com.echuang.modules.cms.entity.CmsDataFileEntity;
 import com.echuang.modules.cms.service.FrontConfigService;
 import com.echuang.modules.cms.service.FrontDataService;
+import com.echuang.modules.oss.controller.OssController;
+import com.echuang.modules.oss.service.OssService;
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,10 +37,14 @@ import java.util.Map;
 @RequestMapping("/product")
 public class FrontDataController {
 
+    private final static Logger logger = LoggerFactory.getLogger(OssController.class);
+
     @Resource
     FrontDataService frontDataService;
     @Resource
     FrontConfigService frontConfigService;
+    @Resource
+    private OssService ossService;
 
     @GetMapping(value={"/list/{parentId}/{categoryId}.html"} )
     public String list(HttpServletRequest request,
@@ -104,6 +121,50 @@ public class FrontDataController {
         request.setAttribute("root", result);
         return "website/product_detail";
     }
+
+    @GetMapping("/downloadFile/{id}.html")
+    public ResponseEntity<org.springframework.core.io.Resource> download(@PathVariable("id") Long id,
+            HttpServletRequest request) throws UnsupportedEncodingException {
+
+
+        CmsDataDTO cmsDataDTO = frontDataService.dataDetail( id );
+        String fileName = "";
+        if(cmsDataDTO!=null){
+            //获取这个资料的福建信息
+            List<CmsDataFileEntity> dataFileList = cmsDataDTO.getDataFileList();
+
+            if( dataFileList!=null && dataFileList.size()>0 ){
+                fileName = dataFileList.get(0).getFileName();
+            }
+        }
+
+        if("".equals(fileName)){
+            throw new RRException("有找到指定的文件");
+        }
+
+        // Load file as Resource
+        org.springframework.core.io.Resource resource = ossService.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            logger.info("Could not determine file type.");
+        }
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                // 下载文件能正常显示中文
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(resource.getFilename(),"UTF-8") + "\"")
+                .body(resource);
+    }
+
 
     /**
      * 查询同级类别列表

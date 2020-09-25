@@ -7,7 +7,7 @@ server:
     port: 8088
 
     servlet:
-        context-path: /wx
+        context-path: /
 
 debug: false
 

@@ -8,6 +8,7 @@ import com.echuang.modules.oss.OSSConst;
 import com.echuang.modules.oss.entity.OssEntity;
 import com.echuang.modules.oss.mapper.OssEntityMapper;
 import com.echuang.modules.oss.service.OssService;
+import com.echuang.modules.sys.service.SysConfigService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
     @Value("${uploadFile.location}")
     private String uploadLocation;
 
+    @javax.annotation.Resource
+    SysConfigService sysConfigService;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         return null;
@@ -62,8 +66,10 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
                 throw new RRException("上传图片不能为空");
             }
             Map<String, Object> map = new HashMap<String, Object>();
-            String contentType = file.getContentType();
-            if (!OSSConst.UPLOAD_FILES_TYPES.contains(contentType)) {
+
+            String allownFileType = sysConfigService.getConfigObject("allowFileType",String.class);
+            String contentType= file.getContentType();
+            if (!allownFileType.contains(contentType)) {
                 // 抛出文件类型不符合规定
                 throw new RRException("文件类型不符合");
             }

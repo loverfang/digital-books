@@ -72,7 +72,9 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     @Override
     public <T> T getConfigObject(String key, Class<T> clazz) {
         String value = getValue(key);
+
         if (StringUtils.isNotBlank(value)) {
+            value.replaceAll("\\\\","\\\\\\\\");
             return JSON.parseObject(value, clazz);
         }
 
