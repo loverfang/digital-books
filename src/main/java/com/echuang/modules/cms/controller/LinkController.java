@@ -18,7 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/cms/link")
+@RequestMapping("/api/cms/link")
 public class LinkController extends AbstractController {
 
     @Resource

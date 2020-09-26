@@ -24,7 +24,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/sys/role")
+@RequestMapping("/api/sys/role")
 public class SysRoleController extends AbstractController {
     @Resource
     private SysRoleService sysRoleService;

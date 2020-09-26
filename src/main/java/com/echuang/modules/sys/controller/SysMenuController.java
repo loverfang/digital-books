@@ -24,7 +24,7 @@ import java.util.Set;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/sys/menu")
+@RequestMapping("/api/sys/menu")
 public class SysMenuController extends AbstractController {
     @Resource
     private SysMenuService sysMenuService;

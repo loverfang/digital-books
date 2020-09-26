@@ -63,17 +63,21 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
         for (MultipartFile file : files) {
             if (file.isEmpty()) {
                 // 上传文件为空
-                throw new RRException("上传图片不能为空");
+                throw new RRException("上传文件不能为空!");
             }
             Map<String, Object> map = new HashMap<String, Object>();
 
-            String allownFileType = sysConfigService.getConfigObject("allowFileType",String.class);
-            String contentType= file.getContentType();
-            if (!allownFileType.contains(contentType)) {
+            String forbidFileType = sysConfigService.getValue("forbidFileType");
+
+            String child = file.getOriginalFilename();
+
+            String suffix = child.substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+
+            if (forbidFileType.contains(suffix)) {
                 // 抛出文件类型不符合规定
-                throw new RRException("文件类型不符合");
+                throw new RRException("请不要向服务器上传可执行文件!");
             }
-            map.put("fileType", contentType);
+            map.put("fileType", suffix);
 
             long fileSize = file.getSize();
             if (fileSize > OSSConst.UPLOAD_FILES_MAX_SIZE) {
@@ -87,9 +91,7 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
                 parent.mkdirs();
             }
 
-            String child = file.getOriginalFilename();
             // 确定上传的文件的扩展名
-            String suffix = "";
             int beginIndex = child.lastIndexOf(".");
             if (beginIndex != -1) {
                 suffix = child.substring(beginIndex);

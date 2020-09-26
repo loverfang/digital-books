@@ -2,10 +2,10 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         druid:
+            url: jdbc:mysql://localhost:3306/digital_books?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
             driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://localhost:3306/wx?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
             username: root
-            password: 123456
+            password: root123456
             initial-size: 10
             max-active: 100
             min-idle: 10
@@ -36,4 +36,5 @@ spring:
 ###上传文件配置 :该配置可根据部署的系统或开发人员自定义路径，每次部署之前需要修改location
 uploadFile:
     resourceHandler: /upload_/**   #请求 url 中的资源映射也是保存到数据库中的父级路径
-    location: D:/webdata/upload_/ #自定义上传文件服务器硬盘保存路径  ，linux服务器保存路径 /opt/webdata/upload_/
+    location: D:/webdata/upload_/  #自定义上传文件服务器硬盘保存路径  ，linux服务器保存路径 /opt/webdata/upload_/
+    #location: /home/luozx/temp_file/

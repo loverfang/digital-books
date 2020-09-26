@@ -29,7 +29,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/sys/user")
+@RequestMapping("/api/sys/user")
 public class SysUserController extends AbstractController {
     @Resource
     private SysUserService sysUserService;

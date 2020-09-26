@@ -20,7 +20,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/cms/data")
+@RequestMapping("/api/cms/data")
 public class DataController {
     @Resource
     private CmsDataService cmsDataService;

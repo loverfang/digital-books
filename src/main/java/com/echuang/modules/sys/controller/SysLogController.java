@@ -21,7 +21,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Controller
-@RequestMapping("/sys/log")
+@RequestMapping("/api/sys/log")
 public class SysLogController {
     @Resource
     private SysLogService sysLogService;

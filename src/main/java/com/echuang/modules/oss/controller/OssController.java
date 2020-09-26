@@ -28,7 +28,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/sys/oss")
+@RequestMapping("/api/sys/oss")
 public class OssController {
 
     private final static Logger logger = LoggerFactory.getLogger(OssController.class);
@@ -40,7 +40,7 @@ public class OssController {
      * 上传文件
      */
     @PostMapping("/uploadFile")
-    @RequiresPermissions("sys:oss:upload")
+    // @RequiresPermissions("sys:oss:upload")
     public ResultResponse upload(@RequestParam(name = "file") MultipartFile file, @RequestParam(name = "childPath",required = false) String childPath) throws Exception {
         MultipartFile[] files = new MultipartFile[1];
         files[0] = file;
@@ -54,7 +54,7 @@ public class OssController {
      * @return
      */
     @PostMapping("/uploadFiles")
-    @RequiresPermissions("sys:oss:upload")
+    // @RequiresPermissions("sys:oss:upload")
     public ResultResponse upload(@RequestParam(name = "file") MultipartFile[] files, @RequestParam(name = "childPath",required = false) String childPath)throws Exception {
         List<Map<String,Object>> uploadResultListMap =  ossService.uploadFile(files, childPath);
         return ResultResponse.ok().put("files", uploadResultListMap);

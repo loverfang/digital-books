@@ -18,7 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/cms/notice")
+@RequestMapping("/api/cms/notice")
 public class NoticeController {
 
     @Resource

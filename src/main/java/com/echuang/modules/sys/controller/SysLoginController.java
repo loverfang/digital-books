@@ -8,10 +8,7 @@ import com.echuang.modules.sys.service.SysCaptchaService;
 import com.echuang.modules.sys.service.SysUserService;
 import com.echuang.modules.sys.service.SysUserTokenService;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -29,6 +26,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
+@RequestMapping("/api")
 public class SysLoginController extends AbstractController {
     @Resource
     private SysUserService sysUserService;
@@ -40,7 +38,7 @@ public class SysLoginController extends AbstractController {
     /**
      * 验证码
      */
-    @GetMapping("captcha.jpg")
+    @GetMapping("/captcha")
     public void captcha(HttpServletResponse response, String uuid) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");

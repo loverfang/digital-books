@@ -17,7 +17,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/cms/category")
+@RequestMapping("/api/cms/category")
 public class CategoryController {
 
     @Resource
