@@ -18,7 +18,7 @@
         <div class="left-warp ">
             <#if root.centerCategory??>
                 <#if root.centerCategory.childList?? && (root.centerCategory.childList?size >0) >
-                    <div class="tit-2">情报中心产品</div>
+                    <div class="tit-2"><#if root.centerCategory.categoryName??>${root.centerCategory.categoryName!''}</#if></div>
                     <!-- 有子列表输出子列表中的内容 -->
                     <#list root.centerCategory.childList as item>
                     <div class="small-tit-warp">
@@ -66,25 +66,26 @@
             <#if root.companyCategory??>
                 <#if root.companyCategory.childList?? && (root.companyCategory.childList?size >0) >
                 <div class="group">
-                    <div class="tit-2">集团情报产品</div>
+                    <div class="tit-2"><#if root.companyCategory.categoryName??>${root.companyCategory.categoryName!''}</#if></div>
                 </div>
                 <!-- 有子列表输出子列表中的内容 -->
                 <#list root.companyCategory.childList as item>
-                <div class="small-tit-warp">
-                    <div class="small-tit"><#if item.categoryName??>${item.categoryName!''}<#else></#if></div>
-                    <div class="more"><a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html">更多 <img src="${base}/website/images/arr.png"></a></div>
-                </div>
-                <#if item.dataList?? && (item.dataList?size >0) >
-                <div class="news-index" >
-                    <ul>
-                        <#if item.dataList?? && (item.dataList?size gt 0)> <#list item.dataList as data>
-                        <li>
-                            <div class="left-tit"><a href="${base}/product/detail/${data.dataId?c}.html"><#if data.name??>${data.name!''}</#if></a></div>
-                            <div class="time"><#if data.createTime??>${data.createTime?string('MM-dd')}<#else>00-00</#if></div>
-                        </li></#list></#if>
-                    </ul>
-                </div>
-                </#if>
+                    <div class="small-tit-warp">
+                        <div class="small-tit"><#if item.categoryName??>${item.categoryName!''}<#else></#if></div>
+                        <div class="more"><a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html">更多 <img src="${base}/website/images/arr.png"></a></div>
+                    </div>
+                    <#if item.dataList?? && (item.dataList?size >0) >
+                    <div class="news-index" >
+                        <ul>
+                            <#if item.dataList?? && (item.dataList?size gt 0)> <#list item.dataList as data>
+                            <li>
+                                <div class="left-tit"><a href="${base}/product/detail/${data.dataId?c}.html"><#if data.name??>${data.name!''}</#if></a></div>
+                                <div class="time"><#if data.createTime??>${data.createTime?string('MM-dd')}<#else>00-00</#if></div>
+                            </li></#list></#if>
+                        </ul>
+                    </div>
+                    </#if>
+                    <#if item_has_next><div class="news-index-line"></div></#if>
                 </#list>
                 <#else>
                     <!-- 没有子列表则输出自身所属的内容 -->
@@ -151,29 +152,36 @@
                     <div class="tit-2">外购报告</div>
                     <div class="more">
                         <#if root.outerBuyCategory??>
-                        <a href="${base}/product/list/${root.outerBuyCategory.parentId!''}/${root.outerBuyCategory.categoryId!''}/">更多
+                        <a href="${base}/product/list/${root.outerBuyCategory.parentId!''}/${root.outerBuyCategory.categoryId!''}.html">更多
                         <#else>
-                            <a href="${base}/product/list/666666/422555/">更多
+                            <a href="${base}/index">更多
                         </#if>
                         <img src="${base}/website/images/arr.png"></a>
                     </div>
                 </div>
+
                 <div class="news-index" style="padding-left: 20px;">
                     <ul>
-                        <#if root.outerBuyCategory??><#if root.childList?? && (root.childList?size gt 0)>
-                        资料类别整理中...
-                        <#else>
-                            <!--没有子类别-->
-                            <#if root.dataList??>
-                                <li>
-                                    <div class="left-tit"><a href="">Transient Electronics Market(2020-2028)</a></div>
-                                </li>
+                        <#if root.outerBuyCategory??>
+                            <#if root.outerBuyCategory.childList?? && (root.outerBuyCategory.childList?size gt 0)>
+                                资料类别整理中...
                             <#else>
-                                资料整理中...
+                                <#if root.outerBuyCategory.dataList?? && (root.outerBuyCategory.dataList?size gt 0)>
+                                    <#list root.outerBuyCategory.dataList as data>
+                                        <li>
+                                            <div class="left-tit"><a href=""><#if data.name??>${data.name!''}</#if></a></div>
+                                        </li>
+                                    </#list>
+                                <#else>
+                                    资料整理中...
+                                 </#if>
                             </#if>
-                        </#if></#if>
+                        <#else>
+                            资料类别整理中...
+                        </#if>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>

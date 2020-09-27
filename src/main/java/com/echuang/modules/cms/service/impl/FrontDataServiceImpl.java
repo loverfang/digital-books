@@ -37,7 +37,7 @@ public class FrontDataServiceImpl  extends ServiceImpl<CmsCategoryMapper, CmsCat
     @Override
     public List<CmsCategoryDTO> categoryListByParentId(Long parentId) {
         List<CmsCategoryEntity> categoryEntityList = cmsCategoryMapper.selectList(new QueryWrapper<CmsCategoryEntity>()
-                .eq("parent_id",parentId).eq("status",1));
+                .eq("parent_id",parentId).eq("status",1).orderByAsc("priority"));
         List<CmsCategoryDTO> categoryDTOList = new ArrayList<>();
         if(categoryEntityList!=null && categoryEntityList.size()>0){
             for(CmsCategoryEntity entity: categoryEntityList){

@@ -58,12 +58,18 @@ public class IndexController {
         dataMap.put("foreignList", foreignList);
 
         // 情报中心产品
-        CmsCategoryDTO centerCategory = new CmsCategoryDTO(3L,0L,"情报中心产品");
+        CmsCategoryDTO centerCategory = frontDataService.queryCategoryById(3L);
+        if(centerCategory==null){
+            centerCategory = new CmsCategoryDTO(3L,0L,"情报中心产品");
+        }
         fileDataList(centerCategory,1,8);
         dataMap.put("centerCategory", centerCategory);
 
         // 集团中心产品
-        CmsCategoryDTO companyCategory = new CmsCategoryDTO(4L,0L,"集团情报产品");
+        CmsCategoryDTO companyCategory = frontDataService.queryCategoryById(4L);
+        if(companyCategory==null){
+            companyCategory = new CmsCategoryDTO(4L,0L,"集团情报产品");
+        }
         fileDataList(companyCategory,1,16);
         dataMap.put("companyCategory", companyCategory);
 
@@ -173,7 +179,7 @@ public class IndexController {
      * @return
      */
     private List<Map<String,Object>> noticeIndexList(){
-        PageUtils page = frontNoticeService.noticeList(1, 6);
+        PageUtils page = frontNoticeService.noticeList(1, 3);
         List<Map<String,Object>> noticeMapList = (List<Map<String,Object>>)page.getList();
         return noticeMapList;
     }
