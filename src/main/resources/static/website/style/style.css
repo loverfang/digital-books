@@ -178,24 +178,27 @@
         .periodical-list{overflow: hidden; clear: both;}
         .periodical-list  ul{
             overflow: hidden;
-            padding-left: 65px;
+            
+           
              
            
         }
         
         .periodical-list ul li {
-            width: 236px;
+            width: 162px;
             overflow: hidden;
             float: left;
-        margin: 20px 30px 20px 0;
-            padding: 5px;
-            background: url(../images/pic-bj.jpg) no-repeat;
+        padding: 20px 65px 20px 65px;
+            
+           
+            
             display: block;
         }
         
         .periodical-list ul li:hover {
             display: block;
-            background: url(../images/pic-bj-2.jpg) no-repeat;
+           
+            
         }
         
         .periodical-list .tit:hover {
@@ -203,22 +206,22 @@
         }
         
         .periodical-list .img-warp {
-            max-width: 230px;
-            max-height: 308px;
+            max-width: 162px;
+            max-height: 220px;
             vertical-align: middle;
         }
         
         .periodical-list img {
-            height: 306px;
-            width: 224px;
+            height: 218px;
+            width: 160px;
             border: 1px solid #cacaca;
         }
         
         .periodical-list .listpic {
             display: table-cell;
             overflow: hidden;
-            width: 226px;
-            height: 308px;
+            width: 162px;
+            height: 220px;
             vertical-align: middle;
             text-align: center;
         }
@@ -226,6 +229,7 @@
         .periodical-list .tit {
             font-size: 16px;
             color: #333;
+            font-weight: bold;
             text-align: center;
             line-height: 50px;
             height: 50px;
@@ -277,36 +281,36 @@
         
         .right-warp-top {
             width: 348px;
-            height: 228px;
+            height: 150px;
             border: 1px solid #d2d2d2;
             margin-bottom: 20px;
         }
         
         .right-warp-mid {
             width: 348px;
-            height: 165px;
+            height: 155px;
             margin-bottom: 20px;
         }
         
         .right-warp-mid-left {
             width: 170px;
-            float: left;
+            float: left;    height: 155px;
             border: 1px solid #d2d2d2;
-            height: 163px;
+            
         }
         
         .right-warp-mid-right {
             border: 1px solid #d2d2d2;
-            width: 170px;
+            width: 170px;    height: 155px;
             float: right;
             border: 1px solid #d2d2d2;
-            height: 163px;
+           
         }
         
         .right-warp-bottom {
             width: 348px;
             border: 1px solid #d2d2d2;
-            height: 210px;
+            height: 295px;
         }
         /* 导航*/
         
@@ -636,13 +640,13 @@
         }
         
         .right-list {
-            padding: 10px;
+            padding: 10px 0 0 10px;
         }
         
         .right-list a {
             height: 36px;
             color: #333;
-            line-height: 36px;
+            line-height: 34px;
             width: 140px;
             clear: both;
             overflow: hidden;
@@ -650,7 +654,7 @@
             white-space: nowrap;
             -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
-            border-bottom: 1px dotted #d2d2d2;
+           
         }
         
         .right-list a:hover {
@@ -658,11 +662,11 @@
         }
         
         .right-list a:last-child {
-            border-bottom: none
+            border-bottom: none !important
         }
         
         .adv-index {
-            padding: 8px 20px 0 20px;
+            padding: 5px 20px 0 20px;
             overflow: hidden;
             clear: both;
         }
@@ -840,7 +844,7 @@
             width: 110px;
             font-size: 18px;
             color: #999999;
-            background: url(../images/line4.jpg) 70px 10px no-repeat;
+           
             margin-right: 20px;
         }
         
@@ -1071,7 +1075,7 @@
         
         .left-content .subnav a:hover,
         .left-content .subnav .active {
-            background: left no-repeat #5f5d5d;
+            background: #5f5d5d;
             color: #ffffff !important;
             transition: all 0.3s;
             border-left: 6px solid #c62c1d;

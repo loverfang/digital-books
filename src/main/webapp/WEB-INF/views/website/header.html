@@ -1,4 +1,3 @@
-<#import "./ftl/website.ftl" as w>
 <#import "./ftl/page.ftl" as page>
 <!-- 顶部 -->
 <div class="top-bj">
@@ -17,6 +16,26 @@
 <!-- 导航 -->
 <div class="navbj">
     <div class="menu">
-    <@w.navigater channelList root.navId />
+        <ul>
+            <li><a href="${base}/index" <#if root.navId??><#if root.navId==0>class="menu-active"</#if></#if>>首页
+                <!--[if IE 7]><!--></a><!--<![endif]-->
+                <!--[if lte IE 6]><table><tr><td><![endif]-->
+                <ul></ul>
+                <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+            </li>
+            <#list channelList as nav><#if nav??>
+            <li><a href="<#if nav.categoryUrl??>${nav.categoryUrl!''}</#if>" <#if root.navId?? && (root.navId == nav.categoryId)>class="menu-active"</#if>><#if nav.categoryName??>${nav.categoryName!''}</#if><#if nav.childList?? && (nav.childList?size gt 0)>
+                <!--[if IE 7]><!--></a>
+                <!--<![endif]-->
+                <!--[if lte IE 6]><table><tr><td><![endif]-->
+                <ul>
+                    <#list nav.childList as childNav>
+                    <li><a href="${childNav.categoryUrl!''}"><#if childNav.categoryName??>${childNav.categoryName!''}</#if></a></li>
+                    </#list>
+                </ul>
+                <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                <#else> </a> </#if>
+            </li> </#if></#list>
+        </ul>
     </div>
 </div>

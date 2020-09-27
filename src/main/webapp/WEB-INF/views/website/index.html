@@ -132,7 +132,11 @@
                 <div class="right-warp-mid-left ">
                     <div class="right-bj">外文期刊数据库</div>
                     <div class="right-list">
-                        <#if root.foreignList?? && (root.foreignList?size gt 0)><#list root.foreignList as item>
+                        <#if root.foreignList?? && (root.foreignList?size gt 0)>
+                        <#assign foreign_count = 0 />
+                        <#list root.foreignList as item>
+                           <#assign foreign_count = foreign_count+1 />
+                           <#if foreign_count gt 3><#break></#if>
                            <a href="${item.categoryUrl!''}" target="_blank">${item.categoryName!''}</a>
                         </#list> <#else>资料整理中...</#if>
                     </div>
@@ -140,7 +144,11 @@
                 <div class="right-warp-mid-right ">
                     <div class="right-bj">中文期刊数据库</div>
                     <div class="right-list">
-                        <#if root.chinaList?? && (root.chinaList?size gt 0)><#list root.chinaList as item>
+                        <#if root.chinaList?? && (root.chinaList?size gt 0)>
+                        <#assign china_count = 0 />
+                        <#list root.chinaList as item>
+                            <#assign china_count = china_count+1 />
+                            <#if china_count gt 3><#break></#if>
                             <a href="${item.categoryUrl!''}" target="_blank">${item.categoryName!''}</a>
                         </#list> <#else>资料整理中...</#if>
                     </div>

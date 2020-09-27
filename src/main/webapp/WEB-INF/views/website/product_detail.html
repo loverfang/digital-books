@@ -12,7 +12,6 @@
 <body>
     <!-- Title+导航 -->
     <#include "header.html" />
-
     <div class="win1200 main-content">
         <div class="crumbs">
             <div class=" location">位置：
@@ -33,6 +32,7 @@
             <div class="kuang"><#if root.dataInfo.createTime??>发布时间：${root.dataInfo.createTime?string('yyyy-MM-dd')}</#if></div>
             </#if>
         </div>
+        <!--
         <div class="all-time">
             <#if root.dataInfo??>
             <dl>
@@ -61,14 +61,18 @@
             </dl>
             </#if>
         </div>
+        -->
         <div class="details-content">
+            <!--
             <div class="zhaiyao">摘要</div>
             <p>
             <#if root.dataInfo.abstracts??>${root.dataInfo.abstracts}</#if>
             </p>
+            -->
+            <#if root.dataInfo.abstracts??>${root.dataInfo.abstracts}</#if>
         </div>
 
-        <div class="btn-bottom">
+        <div class="btn-bottom" style="width:130px;">
             <!--
             <a href="" class="btn-1">查看PDF</a>
             -->

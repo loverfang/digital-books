@@ -74,7 +74,7 @@ public class IndexController {
         dataMap.put("companyCategory", companyCategory);
 
         // 外购列表
-        CmsCategoryDTO outerBuyCategory = new CmsCategoryDTO(6L,0L,"外购报告");
+        CmsCategoryDTO outerBuyCategory = new CmsCategoryDTO(7L,0L,"外购报告");
         fileDataList(outerBuyCategory,1,6);
         dataMap.put("outerBuyCategory", outerBuyCategory);
 
