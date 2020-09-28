@@ -160,7 +160,6 @@ public class CmsCategoryServiceImpl extends ServiceImpl<CmsCategoryMapper, CmsCa
                     }
                 }else {
                     tempDTO.setCategoryUrl("/product/list/"+tempDTO.getParentId()+"/"+tempDTO.getCategoryId() + ".html");
-                    //tempDTO.setCategoryUrl("");
                 }
 
                 tempDTO.setChildList( thirdLevelChannels( tempDTO.getCategoryId() ));
