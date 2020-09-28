@@ -9,6 +9,7 @@ import com.echuang.modules.oss.entity.OssEntity;
 import com.echuang.modules.oss.mapper.OssEntityMapper;
 import com.echuang.modules.oss.service.OssService;
 import com.echuang.modules.sys.service.SysConfigService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,22 +61,21 @@ public class OssServiceImpl extends ServiceImpl<OssEntityMapper, OssEntity> impl
     public  List<Map<String,Object>> uploadFile(MultipartFile[] files, String childPath) throws RRException {
         StringBuffer filesPath = new StringBuffer();
         List<Map<String,Object>> filesResult = new ArrayList<Map<String,Object>>();
+
+        String forbidFileType = sysConfigService.getValue("forbidFileType");
         for (MultipartFile file : files) {
             if (file.isEmpty()) {
                 // 上传文件为空
                 throw new RRException("上传文件不能为空!");
             }
             Map<String, Object> map = new HashMap<String, Object>();
-
-            String forbidFileType = sysConfigService.getValue("forbidFileType");
-
             String child = file.getOriginalFilename();
-
             String suffix = child.substring(file.getOriginalFilename().lastIndexOf(".") + 1);
-
-            if (forbidFileType.contains(suffix)) {
-                // 抛出文件类型不符合规定
-                throw new RRException("请不要向服务器上传可执行文件!");
+            if(StringUtils.isNotBlank( forbidFileType )) {
+                if (forbidFileType.contains(suffix)) {
+                    // 抛出文件类型不符合规定
+                    throw new RRException("请不要向服务器上传可执行文件!");
+                }
             }
             map.put("fileType", suffix);
 
