@@ -30,8 +30,11 @@ public class CmsCategoryEntity  implements Serializable {
     @NotBlank(message = "型状态")
     private Integer status;
 
-    @NotBlank(message = "是否为系统菜单")
+    @NotBlank(message = "是否为系统菜单,系统菜单无法删除")
     private Integer isDefault;
+
+    @NotBlank(message = "是否在前台导航显示")
+    private Integer isNavigater;
 
     private String coverUrl;
 
@@ -115,6 +118,14 @@ public class CmsCategoryEntity  implements Serializable {
     }
 
     public String getCoverUrl() {  return coverUrl;  }
+
+    public Integer getIsNavigater() {
+        return isNavigater;
+    }
+
+    public void setIsNavigater(Integer isNavigater) {
+        this.isNavigater = isNavigater;
+    }
 
     public void setCoverUrl(String coverUrl) { this.coverUrl = coverUrl; }
 

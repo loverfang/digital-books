@@ -38,22 +38,20 @@
                         <#if root.page??><#if root.page.list?? && (root.page.list?size gt 0)><#list root.page.list as item>
                         <li>
                             <div class="time">
-                                <#if item.createTime??>${item.createTime?string('MM - dd')}
-                                <i>
-                                ${item.createTime?string('yyyy')}</#if>
+                                <#if item.createTime??>${item.createTime?string('MM/dd/yyyy')}</#if>
                             </i>
                             </div>
                             <dl>
                                 <dt><a href="${base}/product/detail/${item.dataId?c}.html"><#if item.name??>${item.name!''}</#if></a></dt>
-                                <dd>
-                                    <#if item.abstracts??>
-                                        <#if (item.abstracts?length gt 100)>
-                                            ${(item.abstracts!'')?substring(0,96)}...
-                                        <#else>
-                                            ${item.abstracts!''}
-                                        </#if>
-                                    </#if>
-                                </dd>
+<!--                                <dd>-->
+<!--                                    <#if item.abstracts??>-->
+<!--                                        <#if (item.abstracts?length gt 100)>-->
+<!--                                            ${(item.abstracts!'')?substring(0,96)}...-->
+<!--                                        <#else>-->
+<!--                                            ${item.abstracts!''}-->
+<!--                                        </#if>-->
+<!--                                    </#if>-->
+<!--                                </dd>-->
                             </dl>
                         </li>
                         </#list><#else>资料整理中...</#if></#if>

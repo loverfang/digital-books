@@ -57,6 +57,10 @@ public class CmsDataEntity  implements Serializable {
      */
     private String publicNum;
     /**
+     * 显示顺序
+     */
+    private Integer priority;
+    /**
      * 查看次数
      */
     private Integer viewCount;
@@ -194,6 +198,10 @@ public class CmsDataEntity  implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    public Integer getPriority() { return priority;  }
+
+    public void setPriority(Integer priority) { this.priority = priority; }
 
     public List<CmsDataFileEntity> getDataFileList() {
         return dataFileList;

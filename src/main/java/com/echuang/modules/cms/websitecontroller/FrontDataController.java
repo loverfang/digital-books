@@ -83,6 +83,14 @@ public class FrontDataController {
         result.put("currCategoryId", categoryId);
 
         request.setAttribute("root", result);
+
+        if(parentId == 2 || parentId == 1){
+            // 外连接子类别,也就是他自己的子类别
+            List<CmsCategoryDTO> childCategoryList = frontDataService.categoryListByParentId(categoryId);
+            result.put("childCategoryList", childCategoryList);
+            return "website/category_list";
+        }
+
         if(5 == parentId){
             // 期刊页面
             return "website/qikan_list";

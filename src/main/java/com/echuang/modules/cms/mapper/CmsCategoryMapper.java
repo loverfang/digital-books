@@ -18,4 +18,6 @@ public interface CmsCategoryMapper extends BaseMapper<CmsCategoryEntity> {
 
     List<Map<String,Object>> childList(@Param("parentId") Long parentId);
 
+    List<Map<String,Object>> frontChildList(@Param("parentId") Long parentId);
+
 }

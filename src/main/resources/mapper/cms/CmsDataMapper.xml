@@ -15,6 +15,7 @@
             d.author,
             d.platform,
             d.source,
+            d.priority,
             d.view_count,
             d.down_count,
             d.status,
@@ -32,6 +33,7 @@
         <result column="author"  property="author" />
         <result column="platform"  property="platform" />
         <result column="source"  property="source" />
+        <result column="priority"  property="priority" />
         <result column="public_num"  property="publicNum" />
         <result column="view_count"  property="viewCount" />
         <result column="down_count"  property="downCount" />
@@ -53,6 +55,7 @@
         <result column="public_num"  property="publicNum" />
         <result column="view_count"  property="viewCount" />
         <result column="down_count"  property="downCount" />
+        <result column="priority"  property="priority" />
         <result column="status"  property="status" />
         <result column="create_time"  property="createTime" />
         <collection property="dataFileList" ofType="com.echuang.modules.cms.entity.CmsDataFileEntity" notNullColumn="file_id">
@@ -81,6 +84,7 @@
             d.public_num,
             d.view_count,
             d.down_count,
+            d.priority,
             d.status,
             d.create_time
         from cms_data as d
@@ -100,7 +104,7 @@
                  and d.platform like concat('%',#{params.platform},'%')
              </if>
         </where>
-        order by d.create_time desc
+        order by d.priority asc, d.create_time desc
     </select>
 
     <select id="getCmsDataById" resultMap="dataDetailMap">
@@ -117,6 +121,7 @@
           d.public_num,
           d.view_count,
           d.down_count,
+          d.priority,
           d.status,
           d.create_time,
           c.category_name,

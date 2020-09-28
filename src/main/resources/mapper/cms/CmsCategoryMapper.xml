@@ -13,7 +13,8 @@
             c.parent_id as parentId,
             c.priority as priority,
             c.category_url as categoryUrl,
-            c.remark,
+            c.is_navigater as isNavigater,
+        c.remark,
             p.category_name as parentName,
             (select count(*) from cms_category as temp <where> temp.parent_id = c.category_id <if test="paramMap.status !=null">and temp.status = #{paramMap.status} </if></where>) as childCount
         from
@@ -38,6 +39,7 @@
             c.category_url as categoryUrl,
             c.parent_id as parentId,
             c.priority as priority,
+            c.is_navigater as isNavigater,
             c.remark,
             p.category_name as parentName,
             (select count(*) from cms_category as temp where temp.parent_id = c.category_id) as childCount
@@ -51,4 +53,26 @@
         order by c.priority asc
     </select>
 
+    <select id="frontChildList" parameterType="java.lang.Long" resultType="java.util.Map">
+        select
+            c.category_id as categoryId,
+            c.category_name as categoryName,
+            c.category_url as categoryUrl,
+            c.parent_id as parentId,
+            c.priority as priority,
+            c.is_navigater as isNavigater,
+            c.remark,
+            p.category_name as parentName,
+            (select count(*) from cms_category as temp where temp.parent_id = c.category_id) as childCount
+        from
+            cms_category as c
+            left join cms_category as p on p.category_id = c.parent_id
+        where
+            c.status = 1
+            and
+            c.is_navigater = 1
+            and
+            c.parent_id = #{parentId}
+        order by c.priority asc
+    </select>
 </mapper>
