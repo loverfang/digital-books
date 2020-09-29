@@ -209,10 +209,8 @@
             <ul>
                 <#if root.publicationList?? && (root.publicationList?size gt 0)>  <#list root.publicationList as item>
                 <li>
-                    <a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html">
-                        <div class="listpic"><img src="${base}${item.coverUrl!''}" class="img-warp"></div>
-                        <div class="tit"><#if item.categoryName??>${item.categoryName!''}<#else></#if></div>
-                    </a>
+                    <div class="listpic"><a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html"><img src="${base}${item.coverUrl!''}" class="img-warp"> </a></div>
+                    <div class="tit"><a href="${base}/product/list/${item.parentId?c}/${item.categoryId?c}.html"><#if item.categoryName??>${item.categoryName!''}<#else></#if> </a></div>
                 </li>
                 </#list> <#else>资料整理中...</#if>
             </ul>

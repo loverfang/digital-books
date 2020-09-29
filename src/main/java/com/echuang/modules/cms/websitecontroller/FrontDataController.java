@@ -172,7 +172,7 @@ public class FrontDataController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 // 下载文件能正常显示中文
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(resource.getFilename(),"UTF-8") + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +fileName_ + "\"")
                 .body(resource);
     }
 
