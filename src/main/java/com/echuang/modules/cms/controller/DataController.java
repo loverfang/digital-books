@@ -32,8 +32,9 @@ public class DataController {
      */
     @GetMapping("/list")
     public ResultResponse list(@RequestParam Map<String, Object> params) {
-        Integer page = params.get("page") != null? Integer.valueOf((String)params.get("page")): 1;
-        Integer limit = params.get("limit") != null? Integer.valueOf((String)params.get("limit")) : 10;
+
+        Integer page = params.get("page")==null?1:Integer.valueOf((String)params.get("page"));
+        Integer limit = params.get("limit")==null?10:Integer.valueOf((String)params.get("limit"));
 
         PageUtils pageList = cmsDataService.queryPageList(params, page, limit);
         return ResultResponse.ok().put("page", pageList);

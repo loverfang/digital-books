@@ -121,7 +121,7 @@
                     <ul>
                         <#if root.noticeList?? && (root.noticeList?size gt 0)><#list root.noticeList as notice>
                         <li>
-                            <div class="left-tit xh1">  <a href="/notice/detail/${notice.noticeId?c}.html">${notice.title!''}</a></div>
+                            <div class="left-tit xh${notice_index + 1}"> <a href="/notice/detail/${notice.noticeId?c}.html">${notice.title!''}</a></div>
                         </li>
                         </#list><#else>资料整理中...</#if>
                     </ul>

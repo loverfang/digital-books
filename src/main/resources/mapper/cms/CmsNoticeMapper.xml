@@ -11,6 +11,6 @@
             priority,
             public_time as publicTime
         from cms_notice as n
-        order by public_time desc
+        order by priority asc, public_time desc
     </select>
 </mapper>

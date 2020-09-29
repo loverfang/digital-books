@@ -30,6 +30,7 @@ public class CmsLinkServiceImpl extends ServiceImpl<CmsLinkMapper, CmsLinkEntity
                 new Query<CmsLinkEntity>().getPage(queryMap),
                 new QueryWrapper<CmsLinkEntity>()
                         .like(StringUtils.isNotBlank(linkName), "name", linkName)
+                .orderByAsc("priority")
         );
         return new PageUtils(page);
     }

@@ -25,7 +25,7 @@ public class FrontLinksServiceImpl extends ServiceImpl<CmsLinkMapper, CmsLinkEnt
     CmsLinkMapper cmsLinkMapper;
     @Override
     public List<CmsLinkDTO> allLinksList() {
-        List<CmsLinkEntity> entityList = cmsLinkMapper.selectList(new QueryWrapper<CmsLinkEntity>().orderByAsc("link_id"));
+        List<CmsLinkEntity> entityList = cmsLinkMapper.selectList(new QueryWrapper<CmsLinkEntity>().orderByAsc("priority"));
         List<CmsLinkDTO> linkDTOList = new ArrayList<>();
         if( entityList!=null && entityList.size()> 0){
             for(CmsLinkEntity entity: entityList){

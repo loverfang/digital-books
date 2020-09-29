@@ -86,6 +86,8 @@ public class FrontDataController {
 
         if(parentId == 2 || parentId == 1){
             // 外连接子类别,也就是他自己的子类别
+            // CmsCategoryDTO selfNav = frontDataService.queryCategoryById(parentId);
+            // result.put("currentCategory", selfNav);
             List<CmsCategoryDTO> childCategoryList = frontDataService.categoryListByParentId(categoryId);
             result.put("childCategoryList", childCategoryList);
             return "website/category_list";
@@ -166,6 +168,7 @@ public class FrontDataController {
             contentType = "application/octet-stream";
         }
 
+        String fileName_ = URLEncoder.encode(resource.getFilename(),"UTF-8");
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 // 下载文件能正常显示中文

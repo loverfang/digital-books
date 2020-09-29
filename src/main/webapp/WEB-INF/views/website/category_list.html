@@ -17,15 +17,26 @@
 <div class="main-bj">
     <div class="win1200 main-content">
         <div class="crumbs">
-            <div class=" location">位置：<a href="${base}/index">首页</a> > <span><a href="">ccc</a></span></div>
+            <div class=" location">位置：
+                <a href="/index">首页</a>
+                <#if navigateList??> &gt; <#list navigateList?reverse as nav>
+                    <#if nav_has_next>
+                        <a href="javascript:;"><#if nav.categoryName??> ${nav.categoryName!''} </#if></a> <#if nav_has_next> &gt; </#if>
+                    <#else>
+                        <span><a href="${base}/product/list/${nav.parentId?c}/${nav.categoryId?c}.html"><#if nav.categoryName??> ${nav.categoryName!''}</#if></a></span>
+                    </#if>
+                </#list></#if>
+            </div>
         </div>
+
         <div class="news-list">
-            <ul>
+            <ul><#if root.childCategoryList??><#list root.childCategoryList as category>
                 <li>
-                    <dl>
-                        <dt><a href="${base}/xxxx.html" target="_blank">sssssssssssss</dt>
+                    <a>
+                        <dt>
+                            <a href="<#if category??><#if category.categoryUrl??>${category.categoryUrl}<#else>javascript:;</#if></#if>" target="_blank"><#if category??><#if category.categoryName??>${category.categoryName}</#if></#if></a></dt>
                     </dl>
-                </li>
+                </li></#list></#if>
             </ul>
         </div>
     </div>
